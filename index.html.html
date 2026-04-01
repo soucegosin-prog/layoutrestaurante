@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jantinha do Fabinho | Pedidos no WhatsApp</title>
+  <meta name="description" content="Jantinha do Fabinho em Goiânia. Cardápio digital com jantinhas, pratos executivos, pizzas e bebidas. Faça seu pedido direto no WhatsApp." />
+  <meta name="theme-color" content="#a83222" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #160b09;
+      --bg-2: #23100d;
+      --bg-3: #341611;
+      --surface: rgba(255,255,255,0.06);
+      --surface-2: rgba(255,255,255,0.04);
+      --line: rgba(255,255,255,0.10);
+      --text: #fff8f5;
+      --muted: #e9d8d1;
+      --muted-2: #c9b0a7;
+      --primary: #ff6a2a;
+      --primary-2: #ff944d;
+      --accent: #ffc14d;
+      --accent-2: #ffe08a;
+      --green: #25d366;
+      --shadow: 0 24px 70px rgba(0,0,0,0.34);
+      --radius-xl: 34px;
+      --radius-lg: 26px;
+      --radius-md: 18px;
+      --container: 1200px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Inter", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255,106,42,0.18), transparent 22%),
+        radial-gradient(circle at top right, rgba(255,193,77,0.08), transparent 16%),
+        linear-gradient(180deg, #130906 0%, #190c09 36%, #210f0b 100%);
+      overflow-x: hidden;
+      line-height: 1.55;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; }
+    button, input, select, textarea { font: inherit; }
+    .container { width: min(100% - 28px, var(--container)); margin: 0 auto; }
+    .section { padding: 76px 0; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      color: #fff2eb;
+      font-size: .92rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin: 0 auto 30px;
+      text-align: center;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      margin-bottom: 10px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 0 24px;
+      border-radius: 999px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: .22s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      color: #2a1208;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 18px 36px rgba(255,193,77,0.18);
+    }
+
+    .btn-secondary {
+      color: #fff;
+      background: rgba(255,255,255,0.05);
+      border-color: var(--line);
+    }
+
+    .btn-secondary:hover { background: rgba(255,255,255,0.08); }
+
+    .btn-whatsapp {
+      color: #fff;
+      background: linear-gradient(135deg, #24cc63, #44df7d);
+      box-shadow: 0 18px 34px rgba(37,211,102,0.2);
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 1400;
+      backdrop-filter: blur(14px);
+      background: rgba(18, 7, 5, 0.78);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav {
+      min-height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: 58px;
+      height: 58px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      flex-shrink: 0;
+    }
+
+    .brand-logo img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand-text strong {
+      display: block;
+      font-size: 1rem;
+      line-height: 1.1;
+      letter-spacing: .02em;
+    }
+
+    .brand-text span {
+      display: block;
+      color: var(--muted-2);
+      font-size: .85rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .menu a {
+      font-weight: 700;
+      color: #fef3ee;
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      font-size: 1.15rem;
+      cursor: pointer;
+    }
+
+    .mobile-panel {
+      display: none;
+      padding: 0 0 18px;
+    }
+
+    .mobile-panel.open { display: block; }
+
+    .mobile-links {
+      display: grid;
+      gap: 10px;
+      padding: 16px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(25, 10, 7, 0.96);
+    }
+
+    .mobile-links a {
+      padding: 12px 10px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 94vh;
+      display: flex;
+      align-items: center;
+      padding: 32px 0 46px;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(13,6,4,0.24) 0%, rgba(17,7,5,0.56) 30%, rgba(22,10,7,0.90) 100%);
+      z-index: 1;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top center, rgba(255,106,42,0.20), transparent 22%),
+        radial-gradient(circle at center left, rgba(255,193,77,0.12), transparent 20%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.2) contrast(1.15) brightness(0.52);
+      transform: scale(1.05);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 3;
+      width: min(100% - 28px, 940px);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-logo-center {
+      width: 136px;
+      height: 136px;
+      margin: 0 auto 22px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(255,255,255,0.16);
+      box-shadow: 0 22px 50px rgba(0,0,0,0.38);
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-logo-center img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-top-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: #fff3eb;
+      font-size: .95rem;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: .92;
+      letter-spacing: -0.07em;
+      margin-bottom: 18px;
+      text-shadow: 0 8px 28px rgba(0,0,0,0.28);
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin: 0 auto 28px;
+      color: #f4e6dd;
+      font-size: clamp(1rem, 2.4vw, 1.18rem);
+      text-shadow: 0 4px 18px rgba(0,0,0,0.24);
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .hero-highlights {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      padding: 11px 15px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.11);
+      background: rgba(255,255,255,0.05);
+      font-size: .92rem;
+      font-weight: 700;
+      color: #fef4ef;
+      backdrop-filter: blur(8px);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 26px;
+    }
+
+    .tab-btn {
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .18s ease;
+    }
+
+    .tab-btn.active {
+      color: #2b1308;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-color: transparent;
+      box-shadow: 0 14px 28px rgba(255,193,77,0.14);
+    }
+
+    .catalog-panel { display: none; }
+    .catalog-panel.active { display: block; }
+
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .catalog-grid.two-cols {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .product-card {
+      overflow: hidden;
+      border-radius: 26px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .product-image {
+      position: relative;
+      min-height: 330px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+      display: grid;
+      place-items: center;
+      padding: 0;
+    }
+
+    .product-image.tall { min-height: 410px; }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    .product-tag {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.11);
+      background: rgba(24, 8, 6, 0.82);
+      font-size: .8rem;
+      font-weight: 800;
+      z-index: 2;
+    }
+
+    .product-body {
+      padding: 20px;
+      display: grid;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .product-body h3 {
+      font-size: 1.08rem;
+      line-height: 1.15;
+    }
+
+    .product-body p {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .price {
+      color: var(--accent);
+      font-weight: 900;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+
+    .ordering-flow {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 6px;
+    }
+
+    .flow-card {
+      padding: 24px;
+      border-radius: 26px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .flow-step {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      font-weight: 900;
+      font-size: 1.15rem;
+      box-shadow: 0 12px 26px rgba(255,106,42,0.22);
+    }
+
+    .flow-card h3 {
+      font-size: 1.12rem;
+      margin-bottom: 8px;
+    }
+
+    .flow-card p {
+      color: var(--muted);
+      font-size: .96rem;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.02fr .98fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .about-card, .location-card, .cta-band {
+      padding: 28px;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at top right, rgba(255,106,42,0.12), transparent 24%),
+        linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+      box-shadow: var(--shadow);
+    }
+
+    .about-card h3, .location-card h3, .cta-band h3 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      margin-bottom: 10px;
+    }
+
+    .about-card p, .location-card p, .cta-band p {
+      color: var(--muted);
+    }
+
+    .info-stack {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .info-item {
+      padding: 16px 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .info-item strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: .95rem;
+      color: #fff7f3;
+    }
+
+    .map-embed {
+      width: 100%;
+      min-height: 360px;
+      border: none;
+      border-radius: 24px;
+      margin-top: 18px;
+    }
+
+    .cta-band {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer {
+      padding: 34px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      background: rgba(12, 6, 4, 0.46);
+      margin-top: 24px;
+    }
+
+    .footer-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer p, .footer a { color: var(--muted); }
+
+    .quick-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(6, 0, 0, 0.72);
+      backdrop-filter: blur(8px);
+    }
+
+    .quick-modal.open { display: flex; }
+
+    .quick-modal-panel {
+      width: min(100%, 980px);
+      max-height: min(92vh, 960px);
+      overflow: auto;
+      border-radius: 30px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at top right, rgba(255,106,42,0.14), transparent 20%),
+        linear-gradient(180deg, #22100c 0%, #180b08 100%);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+
+    .quick-modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: sticky;
+      top: 0;
+      background: rgba(24, 11, 8, 0.96);
+      backdrop-filter: blur(10px);
+      z-index: 3;
+    }
+
+    .quick-modal-head h3 {
+      font-size: 1.35rem;
+      letter-spacing: -0.03em;
+    }
+
+    .close-modal {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    .quick-modal-body {
+      padding: 24px;
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .quick-preview {
+      border-radius: 26px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 84px;
+    }
+
+    .quick-preview-image {
+      min-height: 360px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .quick-preview-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .quick-preview-body {
+      padding: 18px;
+    }
+
+    .quick-preview-body h4 {
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+    }
+
+    .quick-preview-body p {
+      color: var(--muted);
+      font-size: .96rem;
+    }
+
+    .order-form {
+      display: grid;
+      gap: 16px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      font-size: .95rem;
+      font-weight: 800;
+      color: #fff7f3;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      min-height: 54px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.11);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      outline: none;
+      padding: 0 16px;
+    }
+
+    .field textarea {
+      min-height: 110px;
+      resize: vertical;
+      padding: 16px;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: #bba29a;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: rgba(255,193,77,0.55);
+      box-shadow: 0 0 0 3px rgba(255,193,77,0.14);
+    }
+
+    .helper {
+      color: var(--muted-2);
+      font-size: .92rem;
+    }
+
+    .summary-box {
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      margin-top: 4px;
+    }
+
+    .summary-box h4 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      font-size: .96rem;
+      margin-bottom: 12px;
+      align-items: flex-start;
+    }
+
+    .summary-line span:first-child {
+      color: #fff;
+      font-weight: 700;
+      min-width: 110px;
+    }
+
+    .summary-line span:last-child {
+      color: var(--muted);
+      text-align: right;
+      flex: 1;
+      word-break: break-word;
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.10);
+      margin: 16px 0;
+    }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 1.12rem;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #25d366;
+      color: #fff;
+      font-size: 1.5rem;
+      box-shadow: 0 20px 34px rgba(37,211,102,0.26);
+      z-index: 1500;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1120px) {
+      .catalog-grid, .catalog-grid.two-cols, .ordering-flow, .about-grid, .quick-modal-body {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .about-grid { grid-template-columns: 1fr; }
+      .quick-modal-body { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 920px) {
+      .menu, .header-cta { display: none; }
+      .menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
+      .nav { min-height: 76px; }
+
+      .hero {
+        min-height: auto;
+        padding: 26px 0 46px;
+      }
+
+      .hero-inner { width: min(100% - 20px, 760px); }
+
+      .catalog-grid, .catalog-grid.two-cols, .ordering-flow, .quick-modal-body {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.5rem, 12vw, 4.4rem);
+        line-height: .98;
+      }
+
+      .hero-actions {
+        display: grid;
+      }
+
+      .btn { width: 100%; }
+      .section { padding: 60px 0; }
+      .hero-logo-center { width: 110px; height: 110px; }
+      .product-image, .product-image.tall, .quick-preview-image { min-height: auto; }
+      .product-image { aspect-ratio: 4 / 4.9; }
+      .product-image.tall { aspect-ratio: 4 / 5.1; }
+      .quick-preview-image { aspect-ratio: 4 / 4.8; }
+    }
+
+    @media (max-width: 560px) {
+      .container { width: min(100% - 20px, var(--container)); }
+      .brand-logo { width: 50px; height: 50px; border-radius: 16px; }
+      .brand-text strong { font-size: .94rem; }
+      .brand-text span { font-size: .78rem; }
+      .hero-logo-center { width: 92px; height: 92px; margin-bottom: 18px; }
+      .hero-top-label { font-size: .88rem; padding: 10px 14px; }
+      .hero p { font-size: 1rem; }
+      .product-body, .flow-card, .about-card, .location-card, .cta-band, .summary-box {
+        padding-left: 18px; padding-right: 18px;
+      }
+      .quick-modal-head { padding: 18px; }
+      .quick-modal-body { padding: 18px; }
+      .summary-line { flex-direction: column; gap: 6px; }
+      .summary-line span:first-child { min-width: auto; }
+      .summary-line span:last-child { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="#inicio" class="brand" aria-label="Jantinha do Fabinho">
+          <div class="brand-logo">
+            <!-- Troque a imagem abaixo pela logo real do cliente -->
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=300&q=80" alt="Logo Jantinha do Fabinho" />
+          </div>
+          <div class="brand-text">
+            <strong>JANTINHA DO FABINHO</strong>
+            <span>Pedidos rápidos direto no WhatsApp</span>
+          </div>
+        </a>
+
+        <div class="menu">
+          <a href="#inicio">Início</a>
+          <a href="#cardapio">Cardápio</a>
+          <a href="#como-pedir">Como pedir</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#localizacao">Localização</a>
+        </div>
+
+        <a class="btn btn-primary header-cta" href="#cardapio">Ver cardápio</a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+      </nav>
+
+      <div class="mobile-panel" id="mobilePanel">
+        <div class="mobile-links">
+          <a href="#inicio">Início</a>
+          <a href="#cardapio">Cardápio</a>
+          <a href="#como-pedir">Como pedir</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#localizacao">Localização</a>
+          <a class="btn btn-primary" href="#cardapio">Ver cardápio</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-bg">
+        <!-- Troque a foto abaixo pela melhor foto real da jantinha -->
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1600&q=80" alt="Prato principal do restaurante" />
+      </div>
+
+      <div class="hero-inner reveal">
+        <div class="hero-logo-center">
+          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80" alt="Logo central Jantinha do Fabinho" />
+        </div>
+
+        <div class="hero-top-label">Desde 2020 • Goiânia - GO</div>
+
+        <h1>Jantinha forte, atendimento rápido e pedido fácil.</h1>
+
+        <p>
+          Um layout pensado para restaurante de verdade: cliente entra, escolhe a jantinha,
+          prato executivo, pizza ou bebida e já envia tudo organizado direto no WhatsApp.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#cardapio">Fazer pedido</a>
+          <a class="btn btn-secondary" href="#localizacao">Ver localização</a>
+        </div>
+
+        <div class="hero-highlights">
+          <div class="hero-badge">Rua das Orquídeas, R. L-1, q102 casa 4</div>
+          <div class="hero-badge">Pedidos direto no WhatsApp</div>
+          <div class="hero-badge">Cardápio organizado e visual profissional</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cardapio">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Cardápio digital</div>
+          <h2>Um cardápio bonito, simples e feito para vender mais.</h2>
+          <p>
+            Aqui o cliente consegue visualizar melhor os pratos, escolher rápido e mandar o pedido pronto.
+          </p>
+        </div>
+
+        <div class="tabs reveal">
+          <button class="tab-btn active" data-tab="jantinhas">Jantinhas</button>
+          <button class="tab-btn" data-tab="executivos">Pratos executivos</button>
+          <button class="tab-btn" data-tab="pizzas">Pizzas</button>
+          <button class="tab-btn" data-tab="bebidas">Bebidas</button>
+        </div>
+
+        <div class="catalog-panel active" id="tab-jantinhas">
+          <div class="catalog-grid">
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Mais pedido</span>
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80" alt="Jantinha completa" />
+              </div>
+              <div class="product-body">
+                <h3>Jantinha Completa</h3>
+                <p>Arroz, feijão tropeiro, carne, mandioca, vinagrete e molho da casa.</p>
+                <div class="price">R$ 29,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Jantinha Completa">Pedir Jantinha Completa</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Especial</span>
+                <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=80" alt="Jantinha mista" />
+              </div>
+              <div class="product-body">
+                <h3>Jantinha Mista</h3>
+                <p>Carne e frango grelhados, arroz soltinho, vinagrete e farofa temperada.</p>
+                <div class="price">R$ 34,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Jantinha Mista">Pedir Jantinha Mista</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Família</span>
+                <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=900&q=80" alt="Jantinha premium" />
+              </div>
+              <div class="product-body">
+                <h3>Jantinha Premium</h3>
+                <p>Porção caprichada com carne nobre, legumes salteados e acompanhamentos completos.</p>
+                <div class="price">R$ 39,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Jantinha Premium">Pedir Jantinha Premium</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Promoção</span>
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80" alt="Jantinha do Fabinho" />
+              </div>
+              <div class="product-body">
+                <h3>Jantinha do Fabinho</h3>
+                <p>Combinação da casa com sabor marcante, molho especial e ótimo custo-benefício.</p>
+                <div class="price">R$ 26,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Jantinha do Fabinho">Pedir Jantinha do Fabinho</button>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="catalog-panel" id="tab-executivos">
+          <div class="catalog-grid">
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Executivo</span>
+                <img src="https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=900&q=80" alt="Prato executivo de frango" />
+              </div>
+              <div class="product-body">
+                <h3>Executivo de Frango</h3>
+                <p>Arroz, feijão, filé de frango grelhado, salada fresca e batata rústica.</p>
+                <div class="price">R$ 24,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Executivo de Frango">Pedir Executivo de Frango</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Executivo</span>
+                <img src="https://images.unsplash.com/photo-1625944230945-1b7dd3b949ab?auto=format&fit=crop&w=900&q=80" alt="Prato executivo de carne" />
+              </div>
+              <div class="product-body">
+                <h3>Executivo de Carne</h3>
+                <p>Arroz, feijão, carne acebolada, salada do dia e farofa caseira.</p>
+                <div class="price">R$ 27,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Executivo de Carne">Pedir Executivo de Carne</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Completo</span>
+                <img src="https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=900&q=80" alt="Prato executivo fit" />
+              </div>
+              <div class="product-body">
+                <h3>Executivo Fit</h3>
+                <p>Proteína grelhada, arroz integral, legumes e salada leve para o dia a dia.</p>
+                <div class="price">R$ 28,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Executivo Fit">Pedir Executivo Fit</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Caseiro</span>
+                <img src="https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=900&q=80" alt="Prato executivo da casa" />
+              </div>
+              <div class="product-body">
+                <h3>Executivo da Casa</h3>
+                <p>Prato completo com sabor caseiro, porção generosa e apresentação profissional.</p>
+                <div class="price">R$ 29,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Executivo da Casa">Pedir Executivo da Casa</button>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="catalog-panel" id="tab-pizzas">
+          <div class="catalog-grid two-cols">
+            <article class="product-card reveal">
+              <div class="product-image tall">
+                <span class="product-tag">Pizza</span>
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=80" alt="Pizza calabresa" />
+              </div>
+              <div class="product-body">
+                <h3>Pizza Calabresa Especial</h3>
+                <p>Molho da casa, mussarela, calabresa fatiada, cebola roxa e toque de orégano.</p>
+                <div class="price">Média R$ 42,90 • Grande R$ 54,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Pizza Calabresa Especial">Pedir Pizza Calabresa</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image tall">
+                <span class="product-tag">Pizza</span>
+                <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=80" alt="Pizza frango com catupiry" />
+              </div>
+              <div class="product-body">
+                <h3>Pizza Frango com Catupiry</h3>
+                <p>Massa leve, molho artesanal, frango desfiado e muito catupiry cremoso.</p>
+                <div class="price">Média R$ 44,90 • Grande R$ 57,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Pizza Frango com Catupiry">Pedir Frango com Catupiry</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Pizza</span>
+                <img src="https://images.unsplash.com/photo-1594007654729-407eedc4be65?auto=format&fit=crop&w=900&q=80" alt="Pizza portuguesa" />
+              </div>
+              <div class="product-body">
+                <h3>Pizza Portuguesa</h3>
+                <p>Presunto, ovos, milho, cebola, azeitona e mussarela derretida.</p>
+                <div class="price">Média R$ 43,90 • Grande R$ 56,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Pizza Portuguesa">Pedir Pizza Portuguesa</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Pizza</span>
+                <img src="https://images.unsplash.com/photo-1511689660979-10d2b1aada49?auto=format&fit=crop&w=900&q=80" alt="Pizza doce" />
+              </div>
+              <div class="product-body">
+                <h3>Pizza de Chocolate</h3>
+                <p>Chocolate cremoso, cobertura generosa e visual que desperta o desejo na hora.</p>
+                <div class="price">Média R$ 39,90 • Grande R$ 49,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Pizza de Chocolate">Pedir Pizza de Chocolate</button>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="catalog-panel" id="tab-bebidas">
+          <div class="catalog-grid two-cols">
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Bebidas</span>
+                <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=900&q=80" alt="Refrigerantes e sucos" />
+              </div>
+              <div class="product-body">
+                <h3>Refrigerantes e Sucos</h3>
+                <p>Coca-Cola, Guaraná, Fanta, sucos naturais e opções geladas para acompanhar.</p>
+                <div class="price">A partir de R$ 6,00</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Bebidas Geladas">Adicionar bebidas</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Cervejas</span>
+                <img src="https://images.unsplash.com/photo-1566633806327-68e152aaf26d?auto=format&fit=crop&w=900&q=80" alt="Cervejas" />
+              </div>
+              <div class="product-body">
+                <h3>Cervejas</h3>
+                <p>Long neck, latas e opções para consumo no local ou para levar.</p>
+                <div class="price">A partir de R$ 8,00</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Cervejas">Adicionar cervejas</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Água</span>
+                <img src="https://images.unsplash.com/photo-1564419320461-6870880221ad?auto=format&fit=crop&w=900&q=80" alt="Água" />
+              </div>
+              <div class="product-body">
+                <h3>Água e Complementos</h3>
+                <p>Água sem gás, com gás e itens extras para completar a experiência do cliente.</p>
+                <div class="price">A partir de R$ 4,00</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Água e Complementos">Adicionar água</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Drinks</span>
+                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=900&q=80" alt="Drinks" />
+              </div>
+              <div class="product-body">
+                <h3>Drinks Simples</h3>
+                <p>Opções práticas para elevar o ticket e deixar o cardápio mais completo.</p>
+                <div class="price">A partir de R$ 14,00</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Drinks Simples">Adicionar drinks</button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="como-pedir">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Como funciona</div>
+          <h2>Fluxo de pedido simples, visual e pensado para vender.</h2>
+          <p>O cliente entra, escolhe o item, preenche os dados e já manda tudo pronto no WhatsApp.</p>
+        </div>
+
+        <div class="ordering-flow">
+          <article class="flow-card reveal">
+            <div class="flow-step">1</div>
+            <h3>Escolhe o item</h3>
+            <p>Jantinha, prato executivo, pizza ou bebida. Tudo separado de forma clara no cardápio.</p>
+          </article>
+
+          <article class="flow-card reveal">
+            <div class="flow-step">2</div>
+            <h3>Preenche o pedido</h3>
+            <p>Ao clicar em pedir, abre uma nova aba/modal com os campos do pedido e entrega.</p>
+          </article>
+
+          <article class="flow-card reveal">
+            <div class="flow-step">3</div>
+            <h3>Envia no WhatsApp</h3>
+            <p>O restaurante recebe o pedido organizado, com menos erro e mais velocidade no atendimento.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sobre">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-card reveal">
+            <div class="eyebrow">Sobre o restaurante</div>
+            <h3>Uma apresentação com cara de marca forte e atendimento profissional.</h3>
+            <p>
+              A Jantinha do Fabinho pode usar esse layout para mostrar melhor os pratos,
+              valorizar a qualidade do cardápio e passar mais confiança para quem pesquisa antes de pedir.
+            </p>
+
+            <div class="info-stack">
+              <div class="info-item">
+                <strong>Desde 2020</strong>
+                <span>Tempo de mercado que reforça tradição e credibilidade.</span>
+              </div>
+              <div class="info-item">
+                <strong>Foco em conversão</strong>
+                <span>Botões estratégicos para transformar visita em pedido direto no WhatsApp.</span>
+              </div>
+              <div class="info-item">
+                <strong>Visual adaptável</strong>
+                <span>Depois da aprovação, troca-se logo, fotos, textos, cardápio e detalhes reais do cliente.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="location-card reveal" id="localizacao">
+            <div class="eyebrow">Localização e atendimento</div>
+            <h3>Fácil de encontrar, fácil de pedir.</h3>
+            <p>
+              Endereço, horário e mapa embutido para ajudar o cliente a achar o restaurante ou pedir com confiança.
+            </p>
+
+            <div class="info-stack">
+              <div class="info-item">
+                <strong>Endereço</strong>
+                <span>Rua das Orquídeas, R. L-1, q102 casa 4 • Goiânia - GO</span>
+              </div>
+              <div class="info-item">
+                <strong>WhatsApp</strong>
+                <span>(62) 99225-1852</span>
+              </div>
+              <div class="info-item">
+                <strong>Instagram</strong>
+                <span>@jantinhadofabinho</span>
+              </div>
+              <div class="info-item">
+                <strong>Horário sugerido</strong>
+                <span>Segunda a domingo • 18h às 23h30</span>
+              </div>
+            </div>
+
+            <iframe
+              class="map-embed"
+              src="https://www.google.com/maps?q=Rua%20das%20Orqu%C3%ADdeas%2C%20R.%20L-1%2C%20q102%20casa%204%2C%20Goi%C3%A2nia%20GO&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+              title="Mapa do restaurante"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-band reveal">
+          <div>
+            <h3>Esse modelo já mostra como o restaurante pode vender mais com um site próprio.</h3>
+            <p>
+              Estrutura pronta para apresentar cardápio, pedido rápido, localização e um visual mais forte do que depender só de Instagram ou app.
+            </p>
+          </div>
+          <a class="btn btn-whatsapp" href="https://wa.me/5562992251852?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20card%C3%A1pio%20da%20Jantinha%20do%20Fabinho." target="_blank" rel="noopener noreferrer">Chamar no WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-wrap">
+      <p>© 2026 Jantinha do Fabinho. Todos os direitos reservados.</p>
+      <a href="https://www.instagram.com/jantinhadofabinho" target="_blank" rel="noopener noreferrer">Instagram do restaurante</a>
+    </div>
+  </footer>
+
+  <a class="whatsapp-float" href="https://wa.me/5562992251852?text=Ol%C3%A1!%20Quero%20fazer%20um%20pedido." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">💬</a>
+
+  <div class="quick-modal" id="quickModal" aria-hidden="true">
+    <div class="quick-modal-panel">
+      <div class="quick-modal-head">
+        <h3 id="quickModalTitle">Fazer pedido</h3>
+        <button class="close-modal" id="closeQuickModal" type="button" aria-label="Fechar">✕</button>
+      </div>
+
+      <div class="quick-modal-body">
+        <div class="quick-preview">
+          <div class="quick-preview-image">
+            <img id="quickPreviewImage" src="" alt="Preview do item" />
+          </div>
+          <div class="quick-preview-body">
+            <h4 id="quickPreviewName">Nome do item</h4>
+            <p id="quickPreviewDescription">Descrição do produto</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="order-form">
+            <div class="field">
+              <label for="quickFlavor">Item escolhido</label>
+              <input type="text" id="quickFlavor" readonly />
+            </div>
+
+            <div class="field" id="quickSizeField">
+              <label for="quickSize">Tamanho</label>
+              <select id="quickSize"></select>
+            </div>
+
+            <div class="field">
+              <label for="quickQty">Quantidade</label>
+              <input type="number" id="quickQty" min="1" value="1" />
+            </div>
+
+            <div class="field">
+              <label for="quickName">Seu nome</label>
+              <input type="text" id="quickName" placeholder="Digite seu nome" />
+            </div>
+
+            <div class="field">
+              <label for="quickPhone">Telefone</label>
+              <input type="text" id="quickPhone" placeholder="(62) 9 9999-9999" />
+            </div>
+
+            <div class="field">
+              <label for="quickDistrict">Bairro</label>
+              <input type="text" id="quickDistrict" placeholder="Seu bairro" />
+            </div>
+
+            <div class="field">
+              <label for="quickCity">Cidade</label>
+              <input type="text" id="quickCity" value="Goiânia" />
+            </div>
+
+            <div class="field">
+              <label for="quickStreet">Rua / Avenida</label>
+              <input type="text" id="quickStreet" placeholder="Rua, avenida ou setor" />
+            </div>
+
+            <div class="field">
+              <label for="quickNumber">Número</label>
+              <input type="text" id="quickNumber" placeholder="Número da residência" />
+            </div>
+
+            <div class="field">
+              <label for="quickComplement">Complemento / Referência</label>
+              <input type="text" id="quickComplement" placeholder="Casa, apto, bloco, referência" />
+            </div>
+
+            <div class="field">
+              <label for="quickMapsLink">Localização</label>
+              <input type="text" id="quickMapsLink" placeholder="Cole aqui o link da localização, se quiser" />
+            </div>
+
+            <div class="field">
+              <label for="quickNote">Observações do pedido</label>
+              <textarea id="quickNote" placeholder="Ex.: sem cebola, molho à parte, ponto da carne, sabor da bebida..."></textarea>
+            </div>
+
+            <div class="summary-box">
+              <h4>Resumo do pedido</h4>
+              <div class="summary-line">
+                <span>Item</span>
+                <span id="summaryItem">Não selecionado</span>
+              </div>
+              <div class="summary-line">
+                <span>Tamanho</span>
+                <span id="summarySize">Não informado</span>
+              </div>
+              <div class="summary-line">
+                <span>Quantidade</span>
+                <span id="summaryQty">1 unidade</span>
+              </div>
+              <div class="summary-line">
+                <span>Entrega</span>
+                <span id="summaryAddress">Não informado</span>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="summary-total">
+                <span>Total estimado</span>
+                <span id="summaryTotal">R$ 0,00</span>
+              </div>
+              <p class="helper">O pedido segue pronto para o WhatsApp, facilitando o atendimento do restaurante.</p>
+            </div>
+
+            <button class="btn btn-whatsapp" id="sendQuickOrder" type="button">Enviar pedido no WhatsApp</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const WHATSAPP_NUMBER = "5562992251852";
+
+    const revealElements = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    }, { threshold: 0.12 });
+    revealElements.forEach((el) => observer.observe(el));
+
+    const menuToggle = document.getElementById("menuToggle");
+    const mobilePanel = document.getElementById("mobilePanel");
+    menuToggle.addEventListener("click", () => {
+      mobilePanel.classList.toggle("open");
+      menuToggle.textContent = mobilePanel.classList.contains("open") ? "✕" : "☰";
+    });
+
+    mobilePanel.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        mobilePanel.classList.remove("open");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabPanels = document.querySelectorAll(".catalog-panel");
+
+    tabButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        tabButtons.forEach(btn => btn.classList.remove("active"));
+        tabPanels.forEach(panel => panel.classList.remove("active"));
+
+        button.classList.add("active");
+        document.getElementById(`tab-${button.dataset.tab}`).classList.add("active");
+      });
+    });
+
+    const quickProducts = {
+      "Jantinha Completa": {
+        kind: "Jantinha",
+        image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80",
+        description: "Arroz, feijão tropeiro, carne, mandioca, vinagrete e molho da casa.",
+        sizes: [
+          { label: "Tradicional", price: 29.90 },
+          { label: "Grande", price: 34.90 }
+        ]
+      },
+      "Jantinha Mista": {
+        kind: "Jantinha",
+        image: "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=80",
+        description: "Carne e frango grelhados, arroz soltinho, vinagrete e farofa temperada.",
+        sizes: [
+          { label: "Tradicional", price: 34.90 },
+          { label: "Grande", price: 39.90 }
+        ]
+      },
+      "Jantinha Premium": {
+        kind: "Jantinha",
+        image: "https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=900&q=80",
+        description: "Porção caprichada com carne nobre, legumes salteados e acompanhamentos completos.",
+        sizes: [
+          { label: "Tradicional", price: 39.90 },
+          { label: "Grande", price: 46.90 }
+        ]
+      },
+      "Jantinha do Fabinho": {
+        kind: "Jantinha",
+        image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80",
+        description: "Combinação da casa com sabor marcante, molho especial e ótimo custo-benefício.",
+        sizes: [
+          { label: "Tradicional", price: 26.90 },
+          { label: "Grande", price: 31.90 }
+        ]
+      },
+      "Executivo de Frango": {
+        kind: "Prato executivo",
+        image: "https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=900&q=80",
+        description: "Arroz, feijão, filé de frango grelhado, salada fresca e batata rústica.",
+        sizes: [
+          { label: "Prato padrão", price: 24.90 }
+        ]
+      },
+      "Executivo de Carne": {
+        kind: "Prato executivo",
+        image: "https://images.unsplash.com/photo-1625944230945-1b7dd3b949ab?auto=format&fit=crop&w=900&q=80",
+        description: "Arroz, feijão, carne acebolada, salada do dia e farofa caseira.",
+        sizes: [
+          { label: "Prato padrão", price: 27.90 }
+        ]
+      },
+      "Executivo Fit": {
+        kind: "Prato executivo",
+        image: "https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?auto=format&fit=crop&w=900&q=80",
+        description: "Proteína grelhada, arroz integral, legumes e salada leve para o dia a dia.",
+        sizes: [
+          { label: "Prato padrão", price: 28.90 }
+        ]
+      },
+      "Executivo da Casa": {
+        kind: "Prato executivo",
+        image: "https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=900&q=80",
+        description: "Prato completo com sabor caseiro, porção generosa e apresentação profissional.",
+        sizes: [
+          { label: "Prato padrão", price: 29.90 }
+        ]
+      },
+      "Pizza Calabresa Especial": {
+        kind: "Pizza",
+        image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=80",
+        description: "Molho da casa, mussarela, calabresa fatiada, cebola roxa e toque de orégano.",
+        sizes: [
+          { label: "Média", price: 42.90 },
+          { label: "Grande", price: 54.90 }
+        ]
+      },
+      "Pizza Frango com Catupiry": {
+        kind: "Pizza",
+        image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=80",
+        description: "Massa leve, molho artesanal, frango desfiado e muito catupiry cremoso.",
+        sizes: [
+          { label: "Média", price: 44.90 },
+          { label: "Grande", price: 57.90 }
+        ]
+      },
+      "Pizza Portuguesa": {
+        kind: "Pizza",
+        image: "https://images.unsplash.com/photo-1594007654729-407eedc4be65?auto=format&fit=crop&w=900&q=80",
+        description: "Presunto, ovos, milho, cebola, azeitona e mussarela derretida.",
+        sizes: [
+          { label: "Média", price: 43.90 },
+          { label: "Grande", price: 56.90 }
+        ]
+      },
+      "Pizza de Chocolate": {
+        kind: "Pizza",
+        image: "https://images.unsplash.com/photo-1511689660979-10d2b1aada49?auto=format&fit=crop&w=900&q=80",
+        description: "Chocolate cremoso, cobertura generosa e visual que desperta o desejo na hora.",
+        sizes: [
+          { label: "Média", price: 39.90 },
+          { label: "Grande", price: 49.90 }
+        ]
+      },
+      "Bebidas Geladas": {
+        kind: "Bebidas",
+        image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=900&q=80",
+        description: "Refrigerantes, sucos e opções geladas para acompanhar.",
+        sizes: [
+          { label: "Escolher no pedido", price: 6.00 }
+        ]
+      },
+      "Cervejas": {
+        kind: "Bebidas",
+        image: "https://images.unsplash.com/photo-1566633806327-68e152aaf26d?auto=format&fit=crop&w=900&q=80",
+        description: "Long neck, latas e opções para consumo no local ou para levar.",
+        sizes: [
+          { label: "Escolher no pedido", price: 8.00 }
+        ]
+      },
+      "Água e Complementos": {
+        kind: "Bebidas",
+        image: "https://images.unsplash.com/photo-1564419320461-6870880221ad?auto=format&fit=crop&w=900&q=80",
+        description: "Água sem gás, com gás e itens extras para completar a experiência.",
+        sizes: [
+          { label: "Escolher no pedido", price: 4.00 }
+        ]
+      },
+      "Drinks Simples": {
+        kind: "Bebidas",
+        image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=900&q=80",
+        description: "Drinks simples para elevar o ticket e deixar o cardápio mais completo.",
+        sizes: [
+          { label: "Escolher no pedido", price: 14.00 }
+        ]
+      }
+    };
+
+    const quickModal = document.getElementById("quickModal");
+    const closeQuickModal = document.getElementById("closeQuickModal");
+    const quickModalTitle = document.getElementById("quickModalTitle");
+    const quickPreviewImage = document.getElementById("quickPreviewImage");
+    const quickPreviewName = document.getElementById("quickPreviewName");
+    const quickPreviewDescription = document.getElementById("quickPreviewDescription");
+    const quickFlavor = document.getElementById("quickFlavor");
+    const quickSizeField = document.getElementById("quickSizeField");
+    const quickSize = document.getElementById("quickSize");
+    const quickQty = document.getElementById("quickQty");
+    const quickName = document.getElementById("quickName");
+    const quickPhone = document.getElementById("quickPhone");
+    const quickDistrict = document.getElementById("quickDistrict");
+    const quickCity = document.getElementById("quickCity");
+    const quickStreet = document.getElementById("quickStreet");
+    const quickNumber = document.getElementById("quickNumber");
+    const quickComplement = document.getElementById("quickComplement");
+    const quickMapsLink = document.getElementById("quickMapsLink");
+    const quickNote = document.getElementById("quickNote");
+    const sendQuickOrder = document.getElementById("sendQuickOrder");
+
+    const summaryItem = document.getElementById("summaryItem");
+    const summarySize = document.getElementById("summarySize");
+    const summaryQty = document.getElementById("summaryQty");
+    const summaryAddress = document.getElementById("summaryAddress");
+    const summaryTotal = document.getElementById("summaryTotal");
+
+    let currentQuickProduct = null;
+
+    function formatPrice(value) {
+      return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    }
+
+    function updateSummary() {
+      if (!currentQuickProduct) return;
+
+      const selectedOption = quickSize.options[quickSize.selectedIndex];
+      const selectedSize = selectedOption ? selectedOption.value : "Padrão";
+      const selectedPrice = selectedOption ? Number(selectedOption.dataset.price || 0) : 0;
+      const qty = Number(quickQty.value || 1);
+      const total = selectedPrice * qty;
+
+      const addressText = [
+        quickDistrict.value.trim(),
+        quickCity.value.trim(),
+        quickStreet.value.trim(),
+        quickNumber.value.trim(),
+        quickComplement.value.trim()
+      ].filter(Boolean).join(" • ");
+
+      summaryItem.textContent = currentQuickProduct.name;
+      summarySize.textContent = selectedSize;
+      summaryQty.textContent = `${qty} ${qty > 1 ? "unidades" : "unidade"}`;
+      summaryAddress.textContent = addressText || "Não informado";
+      summaryTotal.textContent = formatPrice(total);
+    }
+
+    function openQuickOrder(productName) {
+      const product = quickProducts[productName];
+      currentQuickProduct = { name: productName, ...product };
+
+      quickModalTitle.textContent = `Pedir ${productName}`;
+      quickPreviewImage.src = product.image;
+      quickPreviewImage.alt = productName;
+      quickPreviewName.textContent = productName;
+      quickPreviewDescription.textContent = product.description;
+      quickFlavor.value = productName;
+
+      quickSize.innerHTML = "";
+      product.sizes.forEach(size => {
+        const option = document.createElement("option");
+        option.value = size.label;
+        option.dataset.price = size.price;
+        option.textContent = `${size.label} — ${formatPrice(size.price)}`;
+        quickSize.appendChild(option);
+      });
+
+      quickSizeField.style.display = product.sizes.length ? "grid" : "none";
+
+      quickQty.value = "1";
+      quickName.value = "";
+      quickPhone.value = "";
+      quickDistrict.value = "";
+      quickCity.value = "Goiânia";
+      quickStreet.value = "";
+      quickNumber.value = "";
+      quickComplement.value = "";
+      quickMapsLink.value = "";
+      quickNote.value = "";
+
+      quickModal.classList.add("open");
+      document.body.style.overflow = "hidden";
+      updateSummary();
+    }
+
+    function closeQuickOrder() {
+      quickModal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll(".open-quick-order").forEach(button => {
+      button.addEventListener("click", () => openQuickOrder(button.dataset.name));
+    });
+
+    closeQuickModal.addEventListener("click", closeQuickOrder);
+
+    quickModal.addEventListener("click", (event) => {
+      if (event.target === quickModal) closeQuickOrder();
+    });
+
+    [quickSize, quickQty, quickDistrict, quickCity, quickStreet, quickNumber, quickComplement].forEach(el => {
+      el.addEventListener("input", updateSummary);
+      el.addEventListener("change", updateSummary);
+    });
+
+    sendQuickOrder.addEventListener("click", () => {
+      if (!currentQuickProduct) return;
+
+      const selectedOption = quickSize.options[quickSize.selectedIndex];
+      const selectedSize = selectedOption ? selectedOption.value : "Padrão";
+      const selectedPrice = selectedOption ? Number(selectedOption.dataset.price || 0) : 0;
+      const qty = Number(quickQty.value || 1);
+      const total = selectedPrice * qty;
+
+      const message = `Olá! Quero fazer um pedido na *Jantinha do Fabinho*.
+
+*Tipo:* ${currentQuickProduct.kind}
+*Item:* ${currentQuickProduct.name}
+*Tamanho:* ${selectedSize}
+*Quantidade:* ${qty}
+*Observações:* ${quickNote.value.trim() || "Nenhuma"}
+
+*Total estimado:* ${formatPrice(total)}
+
+*Nome:* ${quickName.value.trim() || "Não informado"}
+*Contato:* ${quickPhone.value.trim() || "Não informado"}
+
+*Endereço de entrega:*
+*Bairro:* ${quickDistrict.value.trim() || "Não informado"}
+*Cidade:* ${quickCity.value.trim() || "Não informado"}
+*Rua/Avenida:* ${quickStreet.value.trim() || "Não informado"}
+*Número:* ${quickNumber.value.trim() || "Não informado"}
+*Complemento/Referência:* ${quickComplement.value.trim() || "Não informado"}
+*Localização:* ${quickMapsLink.value.trim() || "Não informado"}`;
+
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && quickModal.classList.contains("open")) closeQuickOrder();
+    });
+  </script>
+</body>
+</html>
