@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Restaurante do Rodrigo | Pedidos no WhatsApp</title>
+  <meta
+    name="description"
+    content="Restaurante do Rodrigo em Goiânia. Cardápio digital com pratos, pizzas, bebidas e pedidos direto no WhatsApp."
+  />
+  <meta name="theme-color" content="#b1441d" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg: #160a07;
+      --bg-2: #22100c;
+      --bg-3: #34160f;
+      --surface: rgba(255,255,255,0.06);
+      --surface-2: rgba(255,255,255,0.04);
+      --line: rgba(255,255,255,0.10);
+      --text: #fff8f4;
+      --muted: #ead8cf;
+      --muted-2: #cdb4aa;
+      --primary: #ff6b2c;
+      --primary-2: #ff9153;
+      --accent: #ffc14d;
+      --accent-2: #ffe08a;
+      --green: #25d366;
+      --shadow: 0 24px 70px rgba(0,0,0,0.34);
+      --radius-xl: 34px;
+      --radius-lg: 26px;
+      --radius-md: 18px;
+      --container: 1200px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255,107,44,0.16), transparent 24%),
+        radial-gradient(circle at top right, rgba(255,193,77,0.08), transparent 18%),
+        linear-gradient(180deg, #140805 0%, #190c08 38%, #210f0a 100%);
+      overflow-x: hidden;
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    .container {
+      width: min(100% - 28px, var(--container));
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 76px 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      color: #fff0e7;
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin: 0 auto 30px;
+      text-align: center;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      margin-bottom: 10px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 0 24px;
+      border-radius: 999px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: 0.22s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #2b1208;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 18px 36px rgba(255,193,77,0.18);
+    }
+
+    .btn-secondary {
+      color: #fff;
+      background: rgba(255,255,255,0.05);
+      border-color: var(--line);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.08);
+    }
+
+    .btn-whatsapp {
+      color: #fff;
+      background: linear-gradient(135deg, #24cc63, #44df7d);
+      box-shadow: 0 18px 34px rgba(37,211,102,0.2);
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 1400;
+      backdrop-filter: blur(14px);
+      background: rgba(18, 7, 5, 0.78);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav {
+      min-height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: 58px;
+      height: 58px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.10);
+      flex-shrink: 0;
+    }
+
+    .brand-logo img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand-text strong {
+      display: block;
+      font-size: 1rem;
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-text span {
+      display: block;
+      color: var(--muted-2);
+      font-size: 0.85rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .menu a {
+      font-weight: 700;
+      color: #fff3ec;
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      font-size: 1.15rem;
+      cursor: pointer;
+    }
+
+    .mobile-panel {
+      display: none;
+      padding: 0 0 18px;
+    }
+
+    .mobile-panel.open {
+      display: block;
+    }
+
+    .mobile-links {
+      display: grid;
+      gap: 10px;
+      padding: 16px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(25, 10, 7, 0.96);
+    }
+
+    .mobile-links a {
+      padding: 12px 10px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 94vh;
+      display: flex;
+      align-items: center;
+      padding: 32px 0 46px;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(13,6,4,0.22) 0%, rgba(17,7,5,0.58) 30%, rgba(22,10,7,0.90) 100%);
+      z-index: 1;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top center, rgba(255,107,44,0.18), transparent 22%),
+        radial-gradient(circle at center left, rgba(255,193,77,0.10), transparent 20%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.2) contrast(1.14) brightness(0.52);
+      transform: scale(1.05);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 3;
+      width: min(100% - 28px, 940px);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-logo-center {
+      width: 136px;
+      height: 136px;
+      margin: 0 auto 22px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(255,255,255,0.16);
+      box-shadow: 0 22px 50px rgba(0,0,0,0.38);
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-logo-center img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-top-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: #fff3eb;
+      font-size: 0.95rem;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 0.92;
+      letter-spacing: -0.07em;
+      margin-bottom: 18px;
+      text-shadow: 0 8px 28px rgba(0,0,0,0.28);
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin: 0 auto 28px;
+      color: #f4e6dd;
+      font-size: clamp(1rem, 2.4vw, 1.18rem);
+      text-shadow: 0 4px 18px rgba(0,0,0,0.24);
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .hero-highlights {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      padding: 11px 15px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.11);
+      background: rgba(255,255,255,0.05);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #fff4ef;
+      backdrop-filter: blur(8px);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 26px;
+    }
+
+    .tab-btn {
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .tab-btn.active {
+      color: #2b1308;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-color: transparent;
+      box-shadow: 0 14px 28px rgba(255,193,77,0.14);
+    }
+
+    .catalog-panel {
+      display: none;
+    }
+
+    .catalog-panel.active {
+      display: block;
+    }
+
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .catalog-grid.two-cols {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .product-card {
+      overflow: hidden;
+      border-radius: 26px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .product-image {
+      position: relative;
+      min-height: 330px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+      display: grid;
+      place-items: center;
+      padding: 0;
+    }
+
+    .product-image.tall {
+      min-height: 410px;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    .product-tag {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.11);
+      background: rgba(24, 8, 6, 0.82);
+      font-size: 0.8rem;
+      font-weight: 800;
+      z-index: 2;
+    }
+
+    .product-body {
+      padding: 20px;
+      display: grid;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .product-body h3 {
+      font-size: 1.08rem;
+      line-height: 1.15;
+    }
+
+    .product-body p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .price {
+      color: var(--accent);
+      font-weight: 900;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+
+    .ordering-flow {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 6px;
+    }
+
+    .flow-card {
+      padding: 24px;
+      border-radius: 26px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .flow-step {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      font-weight: 900;
+      font-size: 1.15rem;
+      box-shadow: 0 12px 26px rgba(255,107,44,0.22);
+    }
+
+    .flow-card h3 {
+      font-size: 1.12rem;
+      margin-bottom: 8px;
+    }
+
+    .flow-card p {
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .about-card,
+    .location-card,
+    .cta-band {
+      padding: 28px;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at top right, rgba(255,107,44,0.12), transparent 24%),
+        linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04));
+      box-shadow: var(--shadow);
+    }
+
+    .about-card h3,
+    .location-card h3,
+    .cta-band h3 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      margin-bottom: 10px;
+    }
+
+    .about-card p,
+    .location-card p,
+    .cta-band p {
+      color: var(--muted);
+    }
+
+    .info-stack {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .info-item {
+      padding: 16px 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .info-item strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+      color: #fff7f3;
+    }
+
+    .map-embed {
+      width: 100%;
+      min-height: 360px;
+      border: none;
+      border-radius: 24px;
+      margin-top: 18px;
+    }
+
+    .cta-band {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer {
+      padding: 34px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      background: rgba(12, 6, 4, 0.46);
+      margin-top: 24px;
+    }
+
+    .footer-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer p,
+    .footer a {
+      color: var(--muted);
+    }
+
+    .quick-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(6, 0, 0, 0.72);
+      backdrop-filter: blur(8px);
+    }
+
+    .quick-modal.open {
+      display: flex;
+    }
+
+    .quick-modal-panel {
+      width: min(100%, 980px);
+      max-height: min(92vh, 960px);
+      overflow: auto;
+      border-radius: 30px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at top right, rgba(255,107,44,0.14), transparent 20%),
+        linear-gradient(180deg, #22100c 0%, #180b08 100%);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+
+    .quick-modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: sticky;
+      top: 0;
+      background: rgba(24, 11, 8, 0.96);
+      backdrop-filter: blur(10px);
+      z-index: 3;
+    }
+
+    .quick-modal-head h3 {
+      font-size: 1.35rem;
+      letter-spacing: -0.03em;
+    }
+
+    .close-modal {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    .quick-modal-body {
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .quick-preview {
+      border-radius: 26px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      position: relative;
+      top: auto;
+    }
+
+    .quick-preview-image {
+      min-height: 360px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .quick-preview-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .quick-preview-body {
+      padding: 18px;
+    }
+
+    .quick-preview-body h4 {
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+    }
+
+    .quick-preview-body p {
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .order-form {
+      display: grid;
+      gap: 16px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fff7f3;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      min-height: 54px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.11);
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      outline: none;
+      padding: 0 16px;
+    }
+
+    .field textarea {
+      min-height: 110px;
+      resize: vertical;
+      padding: 16px;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: #bba29a;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: rgba(255,193,77,0.55);
+      box-shadow: 0 0 0 3px rgba(255,193,77,0.14);
+    }
+
+    .helper {
+      color: var(--muted-2);
+      font-size: 0.92rem;
+    }
+
+    .summary-box {
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      margin-top: 4px;
+    }
+
+    .summary-box h4 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      font-size: 0.96rem;
+      margin-bottom: 12px;
+      align-items: flex-start;
+    }
+
+    .summary-line span:first-child {
+      color: #fff;
+      font-weight: 700;
+      min-width: 110px;
+    }
+
+    .summary-line span:last-child {
+      color: var(--muted);
+      text-align: right;
+      flex: 1;
+      word-break: break-word;
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.10);
+      margin: 16px 0;
+    }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 1.12rem;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #25d366;
+      color: #fff;
+      font-size: 1.5rem;
+      box-shadow: 0 20px 34px rgba(37,211,102,0.26);
+      z-index: 1500;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1120px) {
+      .catalog-grid,
+      .catalog-grid.two-cols,
+      .ordering-flow,
+      .about-grid,
+      .quick-modal-body {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-modal-body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 920px) {
+      .menu,
+      .header-cta {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .nav {
+        min-height: 76px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 26px 0 46px;
+      }
+
+      .hero-inner {
+        width: min(100% - 20px, 760px);
+      }
+
+      .catalog-grid,
+      .catalog-grid.two-cols,
+      .ordering-flow,
+      .quick-modal-body {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.5rem, 12vw, 4.4rem);
+        line-height: 0.98;
+      }
+
+      .hero-actions {
+        display: grid;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .section {
+        padding: 60px 0;
+      }
+
+      .hero-logo-center {
+        width: 110px;
+        height: 110px;
+      }
+
+      .product-image,
+      .product-image.tall,
+      .quick-preview-image {
+        min-height: auto;
+      }
+
+      .product-image {
+        aspect-ratio: 4 / 4.9;
+      }
+
+      .product-image.tall {
+        aspect-ratio: 4 / 5.1;
+      }
+
+      .quick-preview-image {
+        aspect-ratio: 4 / 4.8;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        width: min(100% - 20px, var(--container));
+      }
+
+      .brand-logo {
+        width: 50px;
+        height: 50px;
+        border-radius: 16px;
+      }
+
+      .brand-text strong {
+        font-size: 0.94rem;
+      }
+
+      .brand-text span {
+        font-size: 0.78rem;
+      }
+
+      .hero-logo-center {
+        width: 92px;
+        height: 92px;
+        margin-bottom: 18px;
+      }
+
+      .hero-top-label {
+        font-size: 0.88rem;
+        padding: 10px 14px;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .product-body,
+      .flow-card,
+      .about-card,
+      .location-card,
+      .cta-band,
+      .summary-box {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .quick-modal-head {
+        padding: 18px;
+      }
+
+      .quick-modal-body {
+        padding: 18px;
+      }
+
+      .summary-line {
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .summary-line span:first-child {
+        min-width: auto;
+      }
+
+      .summary-line span:last-child {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="#inicio" class="brand" aria-label="Restaurante do Rodrigo">
+          <div class="brand-logo">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=300&q=80" alt="Logo Restaurante do Rodrigo" />
+          </div>
+          <div class="brand-text">
+            <strong>RESTAURANTE DO RODRIGO</strong>
+            <span>Pedidos rápidos direto no WhatsApp</span>
+          </div>
+        </a>
+
+        <div class="menu">
+          <a href="#inicio">Início</a>
+          <a href="#cardapio">Cardápio</a>
+          <a href="#como-pedir">Como pedir</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#localizacao">Localização</a>
+        </div>
+
+        <a class="btn btn-primary header-cta" href="#cardapio">Ver cardápio</a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+      </nav>
+
+      <div class="mobile-panel" id="mobilePanel">
+        <div class="mobile-links">
+          <a href="#inicio">Início</a>
+          <a href="#cardapio">Cardápio</a>
+          <a href="#como-pedir">Como pedir</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#localizacao">Localização</a>
+          <a class="btn btn-primary" href="#cardapio">Ver cardápio</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-bg">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1600&q=80" alt="Prato principal do Restaurante do Rodrigo" />
+      </div>
+
+      <div class="hero-inner reveal">
+        <div class="hero-logo-center">
+          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80" alt="Logo central Restaurante do Rodrigo" />
+        </div>
+
+        <div class="hero-top-label">Goiânia - GO • Pedido direto no WhatsApp</div>
+
+        <h1>Comida boa, visual profissional e pedido fácil.</h1>
+
+        <p>
+          Um site com cara de restaurante de verdade: o cliente entra, visualiza os pratos,
+          escolhe rápido e já envia tudo organizado direto no WhatsApp.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#cardapio">Fazer pedido</a>
+          <a class="btn btn-secondary" href="#localizacao">Ver localização</a>
+        </div>
+
+        <div class="hero-highlights">
+          <div class="hero-badge">Cardápio digital organizado</div>
+          <div class="hero-badge">Pedido direto no WhatsApp</div>
+          <div class="hero-badge">Visual forte para restaurante</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cardapio">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Cardápio digital</div>
+          <h2>Escolha seu prato e peça sem complicação.</h2>
+          <p>
+            Aqui o cliente consegue ver melhor os produtos, decidir rápido e mandar o pedido pronto.
+          </p>
+        </div>
+
+        <div class="tabs reveal">
+          <button class="tab-btn active" data-tab="pratos">Pratos</button>
+          <button class="tab-btn" data-tab="executivos">Executivos</button>
+          <button class="tab-btn" data-tab="pizzas">Pizzas</button>
+          <button class="tab-btn" data-tab="bebidas">Bebidas</button>
+        </div>
+
+        <div class="catalog-panel active" id="tab-pratos">
+          <div class="catalog-grid">
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Mais pedido</span>
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80" alt="Prato completo da casa" />
+              </div>
+              <div class="product-body">
+                <h3>Prato Completo da Casa</h3>
+                <p>Arroz, feijão tropeiro, carne, mandioca, vinagrete e molho especial.</p>
+                <div class="price">R$ 29,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Prato Completo da Casa">Pedir Prato Completo</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Especial</span>
+                <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=80" alt="Prato misto" />
+              </div>
+              <div class="product-body">
+                <h3>Prato Misto</h3>
+                <p>Carne e frango grelhados, arroz soltinho, farofa temperada e salada fresca.</p>
+                <div class="price">R$ 34,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Prato Misto">Pedir Prato Misto</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Premium</span>
+                <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=900&q=80" alt="Prato premium" />
+              </div>
+              <div class="product-body">
+                <h3>Prato Premium</h3>
+                <p>Carne nobre, legumes salteados e acompanhamentos completos para uma refeição mais forte.</p>
+                <div class="price">R$ 39,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Prato Premium">Pedir Prato Premium</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Promoção</span>
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80" alt="Prato econômico" />
+              </div>
+              <div class="product-body">
+                <h3>Prato Econômico</h3>
+                <p>Boa quantidade, sabor marcante e ótimo custo-benefício para o dia a dia.</p>
+                <div class="price">R$ 26,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Prato Econômico">Pedir Prato Econômico</button>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="catalog-panel" id="tab-executivos">
+          <div class="catalog-grid">
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Executivo</span>
+                <img src="https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=900&q=80" alt="Executivo de frango" />
+              </div>
+              <div class="product-body">
+                <h3>Executivo de Frango</h3>
+                <p>Arroz, feijão, filé de frango grelhado, salada e batata rústica.</p>
+                <div class="price">R$ 24,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Executivo de Frango">Pedir Executivo de Frango</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Executivo</span>
+                <img src="https://images.unsplash.com/photo-1625944230945-1b7dd3b949ab?auto=format&fit=crop&w=900&q=80" alt="Executivo de carne" />
+              </div>
+              <div class="product-body">
+                <h3>Executivo de Carne</h3>
+                <p>Arroz, feijão, carne acebolada, farofa caseira e salada do dia.</p>
+                <div class="price">R$ 27,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Executivo de Carne">Pedir Executivo de Carne</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Executivo</span>
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80" alt="Executivo da casa" />
+              </div>
+              <div class="product-body">
+                <h3>Executivo da Casa</h3>
+                <p>Montagem equilibrada, sabor forte e apresentação bonita para almoço ou jantar.</p>
+                <div class="price">R$ 25,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Executivo da Casa">Pedir Executivo da Casa</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Executivo</span>
+                <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=80" alt="Executivo especial" />
+              </div>
+              <div class="product-body">
+                <h3>Executivo Especial</h3>
+                <p>Mais caprichado, com porção reforçada e acompanhamentos completos.</p>
+                <div class="price">R$ 31,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Executivo Especial">Pedir Executivo Especial</button>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="catalog-panel" id="tab-pizzas">
+          <div class="catalog-grid two-cols">
+            <article class="product-card reveal">
+              <div class="product-image tall">
+                <span class="product-tag">Pizza</span>
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=80" alt="Pizza calabresa" />
+              </div>
+              <div class="product-body">
+                <h3>Pizza Calabresa</h3>
+                <p>Molho especial, muçarela, calabresa fatiada e cebola.</p>
+                <div class="price">R$ 49,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Pizza Calabresa">Pedir Pizza Calabresa</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image tall">
+                <span class="product-tag">Pizza</span>
+                <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=80" alt="Pizza frango com catupiry" />
+              </div>
+              <div class="product-body">
+                <h3>Pizza Frango com Catupiry</h3>
+                <p>Frango temperado, catupiry, muçarela e acabamento cremoso.</p>
+                <div class="price">R$ 54,90</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Pizza Frango com Catupiry">Pedir Pizza Frango com Catupiry</button>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="catalog-panel" id="tab-bebidas">
+          <div class="catalog-grid">
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Bebida</span>
+                <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=900&q=80" alt="Refrigerante" />
+              </div>
+              <div class="product-body">
+                <h3>Refrigerante 2L</h3>
+                <p>Ideal para acompanhar o pedido em família.</p>
+                <div class="price">R$ 12,00</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Refrigerante 2L">Pedir Refrigerante 2L</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Bebida</span>
+                <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=80" alt="Suco natural" />
+              </div>
+              <div class="product-body">
+                <h3>Suco Natural</h3>
+                <p>Mais leve, gelado e ótimo para acompanhar refeições.</p>
+                <div class="price">R$ 8,00</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Suco Natural">Pedir Suco Natural</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Bebida</span>
+                <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=900&q=80" alt="Água" />
+              </div>
+              <div class="product-body">
+                <h3>Água Mineral</h3>
+                <p>Simples, gelada e pronta para completar o pedido.</p>
+                <div class="price">R$ 4,00</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Água Mineral">Pedir Água Mineral</button>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-image">
+                <span class="product-tag">Bebida</span>
+                <img src="https://images.unsplash.com/photo-1581006852262-e4307cf6283a?auto=format&fit=crop&w=900&q=80" alt="Lata refrigerante" />
+              </div>
+              <div class="product-body">
+                <h3>Refrigerante Lata</h3>
+                <p>Prático para pedido individual e combos.</p>
+                <div class="price">R$ 6,00</div>
+                <button class="btn btn-primary open-quick-order" type="button" data-name="Refrigerante Lata">Pedir Refrigerante Lata</button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="como-pedir">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Como pedir</div>
+          <h2>Fluxo simples, rápido e fácil para o cliente.</h2>
+          <p>O pedido chega mais organizado no WhatsApp e facilita o atendimento.</p>
+        </div>
+
+        <div class="ordering-flow">
+          <article class="flow-card reveal">
+            <div class="flow-step">1</div>
+            <h3>Escolhe o item</h3>
+            <p>Pratos, executivos, pizzas ou bebidas. Tudo separado de forma clara no cardápio.</p>
+          </article>
+
+          <article class="flow-card reveal">
+            <div class="flow-step">2</div>
+            <h3>Preenche o pedido</h3>
+            <p>Ao clicar em pedir, abre uma tela com os dados do cliente e da entrega.</p>
+          </article>
+
+          <article class="flow-card reveal">
+            <div class="flow-step">3</div>
+            <h3>Envia no WhatsApp</h3>
+            <p>O restaurante recebe o pedido organizado, com menos erro e mais velocidade.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sobre">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-card reveal">
+            <div class="eyebrow">Sobre o restaurante</div>
+            <h3>Uma apresentação com cara de marca forte e atendimento profissional.</h3>
+            <p>
+              O Restaurante do Rodrigo pode usar esse layout para valorizar melhor os pratos,
+              passar mais confiança para quem pesquisa antes de pedir e gerar mais pedidos pelo WhatsApp.
+            </p>
+
+            <div class="info-stack">
+              <div class="info-item">
+                <strong>Visual vendedor</strong>
+                <span>Estrutura pensada para dar vontade de pedir e facilitar a decisão do cliente.</span>
+              </div>
+              <div class="info-item">
+                <strong>Foco em conversão</strong>
+                <span>Botões e fluxo de pedido organizados para transformar visita em atendimento direto.</span>
+              </div>
+              <div class="info-item">
+                <strong>Pronto para personalizar</strong>
+                <span>Depois você pode trocar logo, fotos, cardápio, preços e dados reais do cliente.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="location-card reveal" id="localizacao">
+            <div class="eyebrow">Localização e atendimento</div>
+            <h3>Fácil de encontrar, fácil de pedir.</h3>
+            <p>
+              Endereço, horário e mapa embutido para ajudar o cliente a achar o restaurante ou pedir com mais confiança.
+            </p>
+
+            <div class="info-stack">
+              <div class="info-item">
+                <strong>Endereço</strong>
+                <span>Goiânia - GO</span>
+              </div>
+              <div class="info-item">
+                <strong>WhatsApp</strong>
+                <span>(62) 98643-4773</span>
+              </div>
+              <div class="info-item">
+                <strong>Instagram</strong>
+                <span>@restaurantedorodrigo</span>
+              </div>
+              <div class="info-item">
+                <strong>Horário sugerido</strong>
+                <span>Segunda a domingo • 11h às 23h</span>
+              </div>
+            </div>
+
+            <iframe
+              class="map-embed"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps?q=Goi%C3%A2nia%20GO&output=embed"
+              title="Mapa de Goiânia"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-band reveal">
+          <div>
+            <h3>Seu restaurante precisa de um cardápio que vende melhor.</h3>
+            <p>
+              Um layout bonito ajuda o cliente a confiar mais, escolher mais rápido e mandar o pedido com muito menos atrito.
+            </p>
+          </div>
+          <a class="btn btn-whatsapp" href="https://wa.me/5562986434773?text=Ol%C3%A1!%20Quero%20fazer%20um%20pedido%20no%20Restaurante%20do%20Rodrigo." target="_blank" rel="noopener noreferrer">
+            Pedir no WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-wrap">
+      <p>© 2026 Restaurante do Rodrigo. Todos os direitos reservados.</p>
+      <p><a href="#inicio">Voltar ao topo</a></p>
+    </div>
+  </footer>
+
+  <a
+    class="whatsapp-float"
+    href="https://wa.me/5562986434773?text=Ol%C3%A1!%20Quero%20fazer%20um%20pedido%20no%20Restaurante%20do%20Rodrigo."
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Falar no WhatsApp"
+  >
+    ✆
+  </a>
+
+  <div class="quick-modal" id="quickModal">
+    <div class="quick-modal-panel">
+      <div class="quick-modal-head">
+        <h3 id="quickModalTitle">Finalizar pedido</h3>
+        <button class="close-modal" id="closeQuickModal" type="button">✕</button>
+      </div>
+
+      <div class="quick-modal-body">
+        <aside class="quick-preview">
+          <div class="quick-preview-image">
+            <img id="quickPreviewImage" src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80" alt="Produto selecionado" />
+          </div>
+          <div class="quick-preview-body">
+            <h4 id="quickPreviewName">Produto</h4>
+            <p id="quickPreviewDescription">Descrição</p>
+          </div>
+        </aside>
+
+        <div class="order-form">
+          <div class="field">
+            <label for="quickQty">Quantidade</label>
+            <select id="quickQty">
+              <option value="1">1 unidade</option>
+              <option value="2">2 unidades</option>
+              <option value="3">3 unidades</option>
+              <option value="4">4 unidades</option>
+              <option value="5">5 unidades</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="quickName">Seu nome</label>
+            <input type="text" id="quickName" placeholder="Digite seu nome" />
+          </div>
+
+          <div class="field">
+            <label for="quickPhone">Seu contato</label>
+            <input type="tel" id="quickPhone" placeholder="(62) 99999-9999" />
+          </div>
+
+          <div class="field">
+            <label for="quickDistrict">Bairro</label>
+            <input type="text" id="quickDistrict" placeholder="Seu bairro" />
+          </div>
+
+          <div class="field">
+            <label for="quickCity">Cidade</label>
+            <input type="text" id="quickCity" value="Goiânia" />
+          </div>
+
+          <div class="field">
+            <label for="quickStreet">Rua / Avenida</label>
+            <input type="text" id="quickStreet" placeholder="Rua, avenida, etc." />
+          </div>
+
+          <div class="field">
+            <label for="quickNumber">Número</label>
+            <input type="text" id="quickNumber" placeholder="Número" />
+          </div>
+
+          <div class="field">
+            <label for="quickComplement">Complemento e referência</label>
+            <input type="text" id="quickComplement" placeholder="Casa, bloco, referência..." />
+          </div>
+
+          <div class="field">
+            <label for="quickMapsLink">Link da localização (opcional)</label>
+            <input type="text" id="quickMapsLink" placeholder="Cole aqui o link da localização, se quiser" />
+          </div>
+
+          <div class="field">
+            <label for="quickNote">Observações</label>
+            <textarea id="quickNote" placeholder="Ex.: sem cebola, ponto da carne, troco para 50..."></textarea>
+          </div>
+
+          <div class="summary-box">
+            <h4>Resumo do pedido</h4>
+
+            <div class="summary-line">
+              <span>Item</span>
+              <span id="summaryProduct">Produto</span>
+            </div>
+
+            <div class="summary-line">
+              <span>Quantidade</span>
+              <span id="summaryQty">1 unidade</span>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="summary-total">
+              <span>Total estimado</span>
+              <span id="summaryTotal">R$ 0,00</span>
+            </div>
+
+            <p class="helper">O pedido será enviado com os dados preenchidos direto no WhatsApp.</p>
+          </div>
+
+          <button class="btn btn-whatsapp" type="button" id="sendQuickOrder">Enviar pedido no WhatsApp</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const WHATSAPP_NUMBER = "5562986434773";
+
+    const quickProducts = {
+      "Prato Completo da Casa": {
+        description: "Arroz, feijão tropeiro, carne, mandioca, vinagrete e molho especial.",
+        image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80",
+        price: 29.9
+      },
+      "Prato Misto": {
+        description: "Carne e frango grelhados, arroz soltinho, farofa temperada e salada fresca.",
+        image: "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=80",
+        price: 34.9
+      },
+      "Prato Premium": {
+        description: "Carne nobre, legumes salteados e acompanhamentos completos para uma refeição mais forte.",
+        image: "https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=900&q=80",
+        price: 39.9
+      },
+      "Prato Econômico": {
+        description: "Boa quantidade, sabor marcante e ótimo custo-benefício para o dia a dia.",
+        image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80",
+        price: 26.9
+      },
+      "Executivo de Frango": {
+        description: "Arroz, feijão, filé de frango grelhado, salada e batata rústica.",
+        image: "https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=900&q=80",
+        price: 24.9
+      },
+      "Executivo de Carne": {
+        description: "Arroz, feijão, carne acebolada, farofa caseira e salada do dia.",
+        image: "https://images.unsplash.com/photo-1625944230945-1b7dd3b949ab?auto=format&fit=crop&w=900&q=80",
+        price: 27.9
+      },
+      "Executivo da Casa": {
+        description: "Montagem equilibrada, sabor forte e apresentação bonita para almoço ou jantar.",
+        image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80",
+        price: 25.9
+      },
+      "Executivo Especial": {
+        description: "Mais caprichado, com porção reforçada e acompanhamentos completos.",
+        image: "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=80",
+        price: 31.9
+      },
+      "Pizza Calabresa": {
+        description: "Molho especial, muçarela, calabresa fatiada e cebola.",
+        image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=80",
+        price: 49.9
+      },
+      "Pizza Frango com Catupiry": {
+        description: "Frango temperado, catupiry, muçarela e acabamento cremoso.",
+        image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=900&q=80",
+        price: 54.9
+      },
+      "Refrigerante 2L": {
+        description: "Ideal para acompanhar o pedido em família.",
+        image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=900&q=80",
+        price: 12
+      },
+      "Suco Natural": {
+        description: "Mais leve, gelado e ótimo para acompanhar refeições.",
+        image: "https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=80",
+        price: 8
+      },
+      "Água Mineral": {
+        description: "Simples, gelada e pronta para completar o pedido.",
+        image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=900&q=80",
+        price: 4
+      },
+      "Refrigerante Lata": {
+        description: "Prático para pedido individual e combos.",
+        image: "https://images.unsplash.com/photo-1581006852262-e4307cf6283a?auto=format&fit=crop&w=900&q=80",
+        price: 6
+      }
+    };
+
+    function formatPrice(value) {
+      return value.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
+    }
+
+    const menuToggle = document.getElementById("menuToggle");
+    const mobilePanel = document.getElementById("mobilePanel");
+    const revealItems = document.querySelectorAll(".reveal");
+
+    if (menuToggle) {
+      menuToggle.addEventListener("click", () => {
+        mobilePanel.classList.toggle("open");
+        menuToggle.textContent = mobilePanel.classList.contains("open") ? "✕" : "☰";
+      });
+    }
+
+    document.querySelectorAll(".mobile-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        mobilePanel.classList.remove("open");
+        if (menuToggle) menuToggle.textContent = "☰";
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    }, { threshold: 0.12 });
+
+    revealItems.forEach(item => observer.observe(item));
+
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabPanels = document.querySelectorAll(".catalog-panel");
+
+    tabButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        tabButtons.forEach(btn => btn.classList.remove("active"));
+        tabPanels.forEach(panel => panel.classList.remove("active"));
+
+        button.classList.add("active");
+        const target = document.getElementById(`tab-${button.dataset.tab}`);
+        if (target) target.classList.add("active");
+      });
+    });
+
+    const quickModal = document.getElementById("quickModal");
+    const closeQuickModal = document.getElementById("closeQuickModal");
+    const quickModalTitle = document.getElementById("quickModalTitle");
+    const quickPreviewImage = document.getElementById("quickPreviewImage");
+    const quickPreviewName = document.getElementById("quickPreviewName");
+    const quickPreviewDescription = document.getElementById("quickPreviewDescription");
+
+    const quickQty = document.getElementById("quickQty");
+    const quickName = document.getElementById("quickName");
+    const quickPhone = document.getElementById("quickPhone");
+    const quickDistrict = document.getElementById("quickDistrict");
+    const quickCity = document.getElementById("quickCity");
+    const quickStreet = document.getElementById("quickStreet");
+    const quickNumber = document.getElementById("quickNumber");
+    const quickComplement = document.getElementById("quickComplement");
+    const quickMapsLink = document.getElementById("quickMapsLink");
+    const quickNote = document.getElementById("quickNote");
+
+    const summaryProduct = document.getElementById("summaryProduct");
+    const summaryQty = document.getElementById("summaryQty");
+    const summaryTotal = document.getElementById("summaryTotal");
+
+    const sendQuickOrder = document.getElementById("sendQuickOrder");
+
+    let currentQuickProduct = null;
+
+    function updateOrderSummary() {
+      if (!currentQuickProduct) return;
+      const qty = Number(quickQty.value || 1);
+      const total = currentQuickProduct.price * qty;
+
+      summaryProduct.textContent = currentQuickProduct.name;
+      summaryQty.textContent = `${qty} ${qty > 1 ? "unidades" : "unidade"}`;
+      summaryTotal.textContent = formatPrice(total);
+    }
+
+    function openQuickOrder(productName) {
+      const product = quickProducts[productName];
+      currentQuickProduct = { name: productName, ...product };
+
+      quickModalTitle.textContent = productName;
+      quickPreviewImage.src = product.image;
+      quickPreviewImage.alt = productName;
+      quickPreviewName.textContent = productName;
+      quickPreviewDescription.textContent = product.description;
+
+      quickQty.value = "1";
+      quickName.value = "";
+      quickPhone.value = "";
+      quickDistrict.value = "";
+      quickCity.value = "Goiânia";
+      quickStreet.value = "";
+      quickNumber.value = "";
+      quickComplement.value = "";
+      quickMapsLink.value = "";
+      quickNote.value = "";
+
+      updateOrderSummary();
+      quickModal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeQuickOrder() {
+      quickModal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll(".open-quick-order").forEach(button => {
+      button.addEventListener("click", () => openQuickOrder(button.dataset.name));
+    });
+
+    quickQty.addEventListener("change", updateOrderSummary);
+
+    closeQuickModal.addEventListener("click", closeQuickOrder);
+
+    quickModal.addEventListener("click", (event) => {
+      if (event.target === quickModal) closeQuickOrder();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && quickModal.classList.contains("open")) {
+        closeQuickOrder();
+      }
+    });
+
+    sendQuickOrder.addEventListener("click", () => {
+      if (!currentQuickProduct) return;
+
+      const qty = Number(quickQty.value || 1);
+      const total = currentQuickProduct.price * qty;
+
+      const message = `Olá! Quero fazer um pedido no *Restaurante do Rodrigo*.
+
+*Item:* ${currentQuickProduct.name}
+*Quantidade:* ${qty}
+*Observações:* ${quickNote.value.trim() || "Nenhuma"}
+
+*Total estimado:* ${formatPrice(total)}
+
+*Nome:* ${quickName.value.trim() || "Não informado"}
+*Contato:* ${quickPhone.value.trim() || "Não informado"}
+
+*Endereço de entrega:*
+*Bairro:* ${quickDistrict.value.trim() || "Não informado"}
+*Cidade:* ${quickCity.value.trim() || "Não informado"}
+*Rua/Avenida:* ${quickStreet.value.trim() || "Não informado"}
+*Número:* ${quickNumber.value.trim() || "Não informado"}
+*Complemento/Referência:* ${quickComplement.value.trim() || "Não informado"}
+*Localização:* ${quickMapsLink.value.trim() || "Não informado"}`;
+
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    });
+  </script>
+</body>
+</html>
