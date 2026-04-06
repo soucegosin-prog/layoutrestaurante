@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">Template Restaurante Automático</title>
+  <meta name="description" id="pageDescription" content="Template automático para restaurantes." />
+  <meta name="theme-color" content="#a51414" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #120807;
+      --bg-2: #1a0d0b;
+      --bg-3: #25100d;
+      --line: rgba(255,255,255,0.09);
+      --text: #fff8f4;
+      --muted: #e7d5cb;
+      --muted-2: #cdb9ae;
+      --primary: #a51414;
+      --primary-2: #d72e2e;
+      --accent: #ffc447;
+      --accent-2: #ffe29a;
+      --green: #25d366;
+      --shadow: 0 24px 80px rgba(0,0,0,0.32);
+      --container: 1240px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Inter", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255,196,71,0.08), transparent 18%),
+        radial-gradient(circle at top right, rgba(215,46,46,0.12), transparent 22%),
+        linear-gradient(180deg, #120807 0%, #160907 28%, #1b0b08 100%);
+      overflow-x: hidden;
+      line-height: 1.55;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; width: 100%; }
+    button, input, textarea, select { font: inherit; }
+    .container { width: min(100% - 28px, var(--container)); margin: 0 auto; }
+    .section { padding: 64px 0; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 999px;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--line); color: #fff4ef; font-size: .92rem;
+      font-weight: 800; margin-bottom: 18px; backdrop-filter: blur(10px);
+    }
+    .section-head { max-width: 760px; margin: 0 auto 28px; text-align: center; }
+    .section-head h2 { font-size: clamp(2rem, 4.2vw, 3.3rem); line-height: 1.02; letter-spacing: -0.05em; margin-bottom: 10px; }
+    .section-head p { color: var(--muted); font-size: 1.02rem; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; min-height: 54px; padding: 0 24px;
+      border-radius: 999px; border: 1px solid transparent; cursor: pointer; font-weight: 800; white-space: nowrap;
+      transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { color: #fff8f2; background: linear-gradient(135deg, var(--primary), var(--primary-2)); box-shadow: 0 18px 34px rgba(215,46,46,0.22); }
+    .btn-secondary { color: #fff; background: rgba(255,255,255,0.06); border-color: var(--line); }
+    .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+    .btn-whatsapp { color: #fff; background: linear-gradient(135deg, #22c55e, #25d366); box-shadow: 0 18px 34px rgba(37,211,102,.22); }
+    .header { position: sticky; top: 0; z-index: 1500; border-bottom: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(14px); background: rgba(16, 7, 6, 0.8); }
+    .nav { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { display: flex; align-items: center; gap: 14px; min-width: 0; }
+    .brand-logo { width: 58px; height: 58px; border-radius: 18px; overflow: hidden; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); flex-shrink: 0; box-shadow: 0 14px 28px rgba(0,0,0,.22); }
+    .brand-logo img { width: 100%; height: 100%; object-fit: cover; }
+    .brand-text strong { display: block; font-size: .98rem; line-height: 1.1; letter-spacing: .02em; }
+    .brand-text span { display: block; color: var(--muted-2); font-size: .84rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .menu { display: flex; align-items: center; gap: 24px; }
+    .menu a { color: #fff1ea; font-weight: 700; }
+    .menu-toggle { display: none; width: 48px; height: 48px; border-radius: 16px; border: 1px solid var(--line); background: rgba(255,255,255,0.06); color: #fff; cursor: pointer; font-size: 1.1rem; }
+    .mobile-panel { display: none; padding: 0 0 16px; }
+    .mobile-panel.open { display: block; }
+    .mobile-links { display: grid; gap: 10px; padding: 16px; border-radius: 22px; border: 1px solid var(--line); background: rgba(24,10,8,.96); }
+    .mobile-links a { padding: 12px 10px; border-radius: 12px; font-weight: 700; }
+    .hero { position: relative; min-height: 95vh; display: flex; align-items: center; justify-content: center; padding: 34px 0 48px; overflow: hidden; isolation: isolate; }
+    .hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,5,5,0.18) 0%, rgba(16,7,6,0.58) 35%, rgba(18,8,7,0.94) 100%); z-index: 1; }
+    .hero::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at center top, rgba(255,196,71,0.08), transparent 20%), radial-gradient(circle at bottom right, rgba(215,46,46,0.14), transparent 22%); z-index: 2; pointer-events: none; }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.7) brightness(.42) contrast(1.04); transform: scale(1.06); }
+    .hero-inner { position: relative; z-index: 3; width: min(100% - 28px, 980px); margin: 0 auto; text-align: center; }
+    .hero-logo-center { width: 138px; height: 138px; margin: 0 auto 22px; border-radius: 50%; overflow: hidden; background: rgba(255,255,255,0.08); border: 3px solid rgba(255,255,255,0.14); box-shadow: 0 22px 50px rgba(0,0,0,.36); backdrop-filter: blur(10px); }
+    .hero-logo-center img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-top-label { display: inline-flex; align-items: center; justify-content: center; padding: 10px 18px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: #fff4ed; font-size: .94rem; font-weight: 800; margin-bottom: 18px; }
+    .hero h1 { font-size: clamp(3rem, 7vw, 6rem); line-height: .92; letter-spacing: -.07em; margin-bottom: 16px; text-shadow: 0 8px 28px rgba(0,0,0,.26); }
+    .hero p { max-width: 760px; margin: 0 auto 28px; color: #f0e0d7; font-size: clamp(1rem, 2.4vw, 1.18rem); text-shadow: 0 4px 18px rgba(0,0,0,.22); }
+    .hero-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; margin-bottom: 18px; }
+    .hero-highlights { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; max-width: 880px; margin: 0 auto; }
+    .hero-badge { padding: 11px 15px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.11); background: rgba(255,255,255,0.05); color: #fff4ef; font-size: .92rem; font-weight: 700; backdrop-filter: blur(8px); }
+    .tabs { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 28px; }
+    .tab-btn { min-height: 48px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.05); color: #fff; font-weight: 800; cursor: pointer; transition: .2s ease; }
+    .tab-btn.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #35190a; border-color: transparent; box-shadow: 0 14px 28px rgba(255,196,71,.16); }
+    .catalog-panel { display: none; }
+    .catalog-panel.active { display: block; }
+    .catalog-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .catalog-grid.two-cols { grid-template-columns: repeat(2, 1fr); }
+    .product-card { overflow: hidden; border-radius: 26px; border: 1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04)); box-shadow: var(--shadow); display: flex; flex-direction: column; min-width: 0; }
+    .product-image { position: relative; min-height: 312px; overflow: hidden; background: rgba(255,255,255,0.03); }
+    .product-image.tall { min-height: 390px; }
+    .product-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .product-card:hover .product-image img { transform: scale(1.05); }
+    .product-tag { position: absolute; top: 14px; left: 14px; z-index: 2; padding: 8px 12px; border-radius: 999px; background: rgba(20, 8, 7, .82); border: 1px solid rgba(255,255,255,.1); font-size: .8rem; font-weight: 800; }
+    .product-body { padding: 20px; display: grid; gap: 10px; flex: 1; }
+    .product-body h3 { font-size: 1.08rem; line-height: 1.15; }
+    .product-body p { color: var(--muted); font-size: .95rem; }
+    .price { color: var(--accent); font-size: 1.05rem; font-weight: 900; letter-spacing: -.02em; }
+    .ordering-flow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .flow-card { padding: 24px; border-radius: 26px; border: 1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03)); box-shadow: var(--shadow); text-align: center; }
+    .flow-step { width: 58px; height: 58px; border-radius: 18px; display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--primary), var(--primary-2)); box-shadow: 0 14px 28px rgba(215,46,46,.24); font-size: 1.12rem; font-weight: 900; margin-bottom: 14px; }
+    .flow-card h3 { font-size: 1.12rem; margin-bottom: 8px; }
+    .flow-card p { color: var(--muted); font-size: .96rem; }
+    .about-grid { display: grid; grid-template-columns: 1.02fr .98fr; gap: 22px; align-items: stretch; }
+    .about-card, .location-card, .cta-band { padding: 28px; border-radius: 28px; border: 1px solid var(--line); background: radial-gradient(circle at top right, rgba(255,196,71,0.08), transparent 18%), linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.04)); box-shadow: var(--shadow); }
+    .about-card h3, .location-card h3, .cta-band h3 { font-size: clamp(1.7rem, 3vw, 2.5rem); line-height: 1.04; letter-spacing: -.04em; margin-bottom: 10px; }
+    .about-card p, .location-card p, .cta-band p { color: var(--muted); }
+    .info-stack { display: grid; gap: 14px; margin-top: 20px; }
+    .info-item { padding: 16px 18px; border-radius: 20px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
+    .info-item strong { display: block; margin-bottom: 4px; color: #fff7f3; font-size: .95rem; }
+    .map-embed { width: 100%; min-height: 360px; border: none; border-radius: 24px; margin-top: 18px; background: rgba(255,255,255,.04); }
+    .cta-band { display: flex; align-items: center; justify-content: space-between; gap: 22px; flex-wrap: wrap; }
+    .footer { padding: 36px 0; margin-top: 22px; background: rgba(13, 6, 5, .5); border-top: 1px solid rgba(255,255,255,0.08); }
+    .footer-wrap { display: flex; justify-content: space-between; align-items: center; gap: 18px; flex-wrap: wrap; }
+    .footer p, .footer a { color: var(--muted); }
+    .quick-modal { position: fixed; inset: 0; z-index: 2200; display: none; align-items: center; justify-content: center; padding: 18px; background: rgba(5,0,0,.72); backdrop-filter: blur(8px); }
+    .quick-modal.open { display: flex; }
+    .quick-modal-panel { width: min(100%, 1160px); max-height: min(94vh, 980px); overflow: auto; border-radius: 30px; border: 1px solid var(--line); background: radial-gradient(circle at top right, rgba(255,196,71,0.08), transparent 16%), linear-gradient(180deg, #22100c 0%, #180b08 100%); box-shadow: 0 30px 80px rgba(0,0,0,.52); }
+    .quick-modal-head { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(24,11,8,.96); backdrop-filter: blur(10px); }
+    .quick-modal-head h3 { font-size: 1.32rem; letter-spacing: -.03em; }
+    .close-modal { width: 46px; height: 46px; border-radius: 16px; border: 1px solid var(--line); background: rgba(255,255,255,0.06); color: #fff; cursor: pointer; font-size: 1.2rem; }
+    .quick-modal-body { padding: 24px; display: grid; grid-template-columns: .96fr 1.04fr; gap: 24px; align-items: start; }
+    .quick-preview { border-radius: 26px; overflow: hidden; border: 1px solid var(--line); background: rgba(255,255,255,0.04); box-shadow: var(--shadow); position: sticky; top: 96px; }
+    .quick-preview-image { min-height: 370px; background: rgba(255,255,255,0.03); }
+    .quick-preview-image img { width: 100%; height: 100%; object-fit: cover; }
+    .quick-preview-body { padding: 18px; }
+    .quick-preview-body h4 { font-size: 1.22rem; margin-bottom: 6px; }
+    .quick-preview-body p { color: var(--muted); font-size: .96rem; }
+    .order-form { display: grid; gap: 16px; }
+    .field { display: grid; gap: 8px; }
+    .field label { font-size: .95rem; font-weight: 800; color: #fff7f3; }
+    .field input, .field select, .field textarea { width: 100%; min-height: 54px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.11); background: rgba(255,255,255,0.05); color: #fff; outline: none; padding: 0 16px; }
+    .field textarea { min-height: 110px; resize: vertical; padding: 16px; }
+    .field input::placeholder, .field textarea::placeholder { color: #bba29a; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: rgba(255,196,71,.56); box-shadow: 0 0 0 3px rgba(255,196,71,.14); }
+    .helper { color: var(--muted-2); font-size: .92rem; }
+    .options-grid { display: grid; gap: 10px; }
+    .option-chip { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.09); background: rgba(255,255,255,0.04); }
+    .option-chip label { display: flex; align-items: center; gap: 10px; font-weight: 700; cursor: pointer; flex: 1; }
+    .option-chip input[type="checkbox"], .mini-chip input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent); min-height: auto; padding: 0; }
+    .remove-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .mini-chip { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.09); background: rgba(255,255,255,0.04); font-weight: 700; }
+    .qty-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .qty-control { display: inline-flex; align-items: center; border-radius: 999px; border: 1px solid rgba(255,255,255,0.09); background: rgba(255,255,255,0.05); overflow: hidden; }
+    .qty-control button { width: 46px; height: 46px; border: none; background: transparent; color: #fff; cursor: pointer; font-size: 1.2rem; font-weight: 800; }
+    .qty-value { min-width: 48px; text-align: center; font-weight: 800; }
+    .delivery-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .delivery-btn { min-height: 54px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.09); background: rgba(255,255,255,0.04); color: #fff; cursor: pointer; font-weight: 800; }
+    .delivery-btn.active { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #35190a; border-color: transparent; }
+    .address-grid { display: grid; grid-template-columns: 1.1fr .55fr; gap: 12px; }
+    .address-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .summary-box { padding: 22px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); margin-top: 4px; }
+    .summary-box h4 { font-size: 1rem; margin-bottom: 10px; }
+    .summary-line { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; font-size: .96rem; margin-bottom: 12px; }
+    .summary-line span:first-child { color: #fff; font-weight: 700; min-width: 112px; }
+    .summary-line span:last-child { color: var(--muted); text-align: right; flex: 1; word-break: break-word; }
+    .divider { height: 1px; background: rgba(255,255,255,0.10); margin: 16px 0; }
+    .summary-total { display: flex; justify-content: space-between; gap: 12px; font-size: 1.12rem; font-weight: 900; margin-bottom: 6px; }
+    .map-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .whatsapp-float { position: fixed; right: 18px; bottom: 18px; width: 62px; height: 62px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: #25d366; color: #fff; font-size: 1.5rem; box-shadow: 0 20px 34px rgba(37,211,102,.26); z-index: 1600; }
+    .reveal { opacity: 0; transform: translateY(28px) scale(.985); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0) scale(1); }
+
+    @media (max-width: 1120px) {
+      .catalog-grid, .ordering-flow, .about-grid, .quick-modal-body { grid-template-columns: repeat(2, 1fr); }
+      .catalog-grid.two-cols, .about-grid, .quick-modal-body { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 920px) {
+      .menu, .header-cta { display: none; }
+      .menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
+      .nav { min-height: 76px; }
+      .hero { min-height: auto; padding: 28px 0 24px; }
+      .hero-inner { width: min(100% - 20px, 760px); }
+      .catalog-grid, .catalog-grid.two-cols, .ordering-flow, .quick-modal-body, .address-grid, .address-grid-2, .delivery-switch, .remove-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: clamp(2.6rem, 12vw, 4.5rem); line-height: .98; }
+      .hero-actions { display: grid; }
+      .btn { width: 100%; }
+      .section { padding: 60px 0; }
+      .hero-logo-center { width: 110px; height: 110px; }
+      .product-image, .product-image.tall, .quick-preview-image { min-height: auto; }
+      .product-image { aspect-ratio: 4 / 4.9; }
+      .product-image.tall { aspect-ratio: 4 / 5.1; }
+      .quick-preview-image { aspect-ratio: 4 / 4.8; }
+      .quick-preview { position: relative; top: auto; }
+    }
+    @media (max-width: 560px) {
+      .container { width: min(100% - 20px, var(--container)); }
+      .brand-logo { width: 50px; height: 50px; border-radius: 16px; }
+      .brand-text strong { font-size: .93rem; }
+      .brand-text span { font-size: .78rem; }
+      .hero-logo-center { width: 92px; height: 92px; margin-bottom: 18px; }
+      .hero-top-label { font-size: .88rem; padding: 10px 14px; }
+      .hero p { font-size: 1rem; }
+      .product-body, .flow-card, .about-card, .location-card, .cta-band, .summary-box { padding-left: 18px; padding-right: 18px; }
+      .quick-modal-head { padding: 18px; }
+      .quick-modal-body { padding: 18px; }
+      .summary-line { flex-direction: column; gap: 6px; }
+      .summary-line span:first-child { min-width: auto; }
+      .summary-line span:last-child { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="#inicio" class="brand" aria-label="Restaurante">
+          <div class="brand-logo"><img id="brandLogo" src="" alt="Logo" /></div>
+          <div class="brand-text">
+            <strong id="brandName"></strong>
+            <span id="brandSubtitle"></span>
+          </div>
+        </a>
+        <div class="menu">
+          <a href="#inicio">Início</a>
+          <a href="#pedidos">Cardápio</a>
+          <a href="#como-pedir">Como pedir</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#localizacao">Localização</a>
+        </div>
+        <a class="btn btn-primary header-cta" href="#pedidos">Ver cardápio</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+      </nav>
+      <div class="mobile-panel" id="mobilePanel">
+        <div class="mobile-links">
+          <a href="#inicio">Início</a>
+          <a href="#pedidos">Cardápio</a>
+          <a href="#como-pedir">Como pedir</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#localizacao">Localização</a>
+          <a class="btn btn-primary" href="#pedidos">Ver cardápio</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-bg"><img id="heroImage" src="" alt="Imagem principal" /></div>
+      <div class="hero-inner reveal">
+        <div class="hero-logo-center"><img id="heroLogo" src="" alt="Logo central" /></div>
+        <div class="hero-top-label" id="heroTopLabel"></div>
+        <h1 id="heroTitle"></h1>
+        <p id="heroDescription"></p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#pedidos">Pedir agora</a>
+          <a class="btn btn-secondary" href="#localizacao">Ver localização</a>
+        </div>
+        <div class="hero-highlights" id="heroHighlights"></div>
+      </div>
+    </section>
+
+    <section class="section" id="pedidos">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Cardápio</div>
+          <h2 id="menuSectionTitle"></h2>
+          <p id="menuSectionDescription"></p>
+        </div>
+        <div class="tabs reveal" id="tabsContainer"></div>
+        <div id="panelsContainer"></div>
+      </div>
+    </section>
+
+    <section class="section" id="como-pedir">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Como pedir</div>
+          <h2 id="stepsTitle"></h2>
+          <p id="stepsDescription"></p>
+        </div>
+        <div class="ordering-flow" id="stepsContainer"></div>
+      </div>
+    </section>
+
+    <section class="section" id="sobre">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-card reveal">
+            <div class="eyebrow">Sobre o restaurante</div>
+            <h3 id="aboutTitle"></h3>
+            <p id="aboutDescription"></p>
+            <div class="info-stack" id="aboutHighlights"></div>
+          </div>
+          <div class="location-card reveal" id="localizacao">
+            <div class="eyebrow">Localização e atendimento</div>
+            <h3 id="locationTitle"></h3>
+            <p id="locationDescription"></p>
+            <div class="info-stack" id="locationInfo"></div>
+            <div class="map-actions">
+              <a class="btn btn-secondary" id="mapsButton" href="#" target="_blank" rel="noopener noreferrer">Ver no Google Maps</a>
+              <a class="btn btn-whatsapp" id="whatsButton" href="#" target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
+            </div>
+            <iframe class="map-embed" id="mapEmbed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="" title="Mapa"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-band reveal">
+          <div>
+            <div class="eyebrow">Peça agora</div>
+            <h3 id="ctaTitle"></h3>
+            <p id="ctaDescription"></p>
+          </div>
+          <a class="btn btn-whatsapp" href="#pedidos">Montar pedido</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-wrap">
+      <div>
+        <p><strong id="footerName"></strong></p>
+        <p id="footerAddress"></p>
+      </div>
+      <div>
+        <p><a id="footerWhatsapp" href="#" target="_blank" rel="noopener noreferrer">WhatsApp</a> • <a id="footerInstagram" href="#" target="_blank" rel="noopener noreferrer">Instagram</a></p>
+        <p id="footerInfo"></p>
+      </div>
+    </div>
+  </footer>
+
+  <a class="whatsapp-float" id="floatWhatsapp" href="#" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp">✆</a>
+
+  <div class="quick-modal" id="quickModal" aria-hidden="true">
+    <div class="quick-modal-panel">
+      <div class="quick-modal-head">
+        <h3>Monte seu pedido</h3>
+        <button class="close-modal" type="button" id="closeModal" aria-label="Fechar">✕</button>
+      </div>
+      <div class="quick-modal-body">
+        <aside class="quick-preview">
+          <div class="quick-preview-image"><img id="modalItemImage" src="" alt="Item selecionado" /></div>
+          <div class="quick-preview-body"><h4 id="modalItemName">Item</h4><p id="modalItemDescription">Descrição do item.</p></div>
+        </aside>
+        <section class="order-form">
+          <div class="field"><label>Item selecionado</label><input type="text" id="selectedItem" readonly /></div>
+          <div class="field"><label>Categoria</label><input type="text" id="selectedCategory" readonly /></div>
+
+          <div class="field">
+            <label>Adicionais</label>
+            <div class="options-grid" id="addonsContainer"></div>
+          </div>
+
+          <div class="field">
+            <label>Remover ingredientes</label>
+            <div class="remove-grid" id="removeContainer"></div>
+          </div>
+
+          <div class="field"><label>Observações</label><textarea id="orderNotes" placeholder="Ex: sem cebola, retirar molho, ponto da carne, cortar em fatias..."></textarea></div>
+          <div class="field qty-row">
+            <div>
+              <label>Quantidade</label>
+              <div class="qty-control">
+                <button type="button" id="decreaseQty">−</button>
+                <div class="qty-value" id="qtyValue">1</div>
+                <button type="button" id="increaseQty">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Forma de recebimento</label>
+            <div class="delivery-switch">
+              <button type="button" class="delivery-btn active" data-delivery="retirada">Retirada na loja</button>
+              <button type="button" class="delivery-btn" data-delivery="entrega">Entrega</button>
+            </div>
+            <div class="helper">Se for entrega, preencha o endereço abaixo.</div>
+          </div>
+
+          <div class="address-grid-2">
+            <div class="field"><label>Seu nome</label><input type="text" id="customerName" placeholder="Digite seu nome" /></div>
+            <div class="field"><label>Telefone</label><input type="text" id="customerPhone" placeholder="(62) 99999-9999" /></div>
+          </div>
+
+          <div id="addressFields" style="display:none;">
+            <div class="address-grid">
+              <div class="field"><label>Rua</label><input type="text" id="street" placeholder="Rua / Avenida" /></div>
+              <div class="field"><label>Número</label><input type="text" id="number" placeholder="Nº" /></div>
+            </div>
+            <div class="address-grid-2">
+              <div class="field"><label>Bairro</label><input type="text" id="district" placeholder="Seu bairro" /></div>
+              <div class="field"><label>Complemento</label><input type="text" id="complement" placeholder="Casa, apto, bloco..." /></div>
+            </div>
+            <div class="field"><label>Referência</label><input type="text" id="reference" placeholder="Ponto de referência" /></div>
+          </div>
+
+          <div class="summary-box">
+            <h4>Revisão do pedido</h4>
+            <div class="summary-line"><span>Item</span><span id="summaryItem">-</span></div>
+            <div class="summary-line"><span>Adicionais</span><span id="summaryAddons">Nenhum adicional</span></div>
+            <div class="summary-line"><span>Remover</span><span id="summaryRemovals">Nada removido</span></div>
+            <div class="summary-line"><span>Observações</span><span id="summaryNotes">Sem observações</span></div>
+            <div class="summary-line"><span>Quantidade</span><span id="summaryQty">1</span></div>
+            <div class="summary-line"><span>Recebimento</span><span id="summaryDelivery">Retirada na loja</span></div>
+            <div class="summary-line"><span>Endereço</span><span id="summaryAddress">Retirada na loja</span></div>
+            <div class="divider"></div>
+            <div class="summary-total"><span>Total</span><span id="summaryTotal">R$ 0,00</span></div>
+            <div class="helper" id="summaryMapText">O endereço digitado pode ser aberto no Google Maps antes do envio do pedido.</div>
+          </div>
+
+          <div class="hero-actions" style="margin-bottom:0; justify-content:flex-start;">
+            <button class="btn btn-whatsapp" type="button" id="sendOrderBtn">Enviar pedido no WhatsApp</button>
+            <button class="btn btn-secondary" type="button" id="openAddressMapBtn">Abrir meu endereço no Google Maps</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SITE_CONFIG = {
+      business: {
+        name: "Restaurante Prime",
+        subtitle: "Pedidos rápidos direto no WhatsApp",
+        pageTitle: "Restaurante Prime | Pedidos no WhatsApp",
+        pageDescription: "Modelo premium para restaurantes com cardápio digital, pedidos personalizados, revisão do pedido e envio direto no WhatsApp.",
+        heroTopLabel: "Goiânia - GO • Aberto todos os dias",
+        heroTitle: "Comida boa, visual forte e pedido fácil.",
+        heroDescription: "Um modelo premium para restaurantes que querem apresentar melhor o cardápio, facilitar a escolha do cliente e receber pedidos organizados direto no WhatsApp.",
+        heroImage: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1800&q=80",
+        logo: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80",
+        highlightBadges: [
+          "⭐ 4,8 • 1.200 avaliações",
+          "Faixa de preço • R$ 20–60",
+          "Retirada • Entrega • Refeição no local"
+        ],
+        address: "Rua Exemplo, 123 - Goiânia - GO",
+        whatsappNumber: "5562999999999",
+        whatsappText: "(62) 99999-9999",
+        instagram: "https://www.instagram.com/",
+        instagramText: "@restauranteprime",
+        mapsSearchLink: "https://www.google.com/maps/search/?api=1&query=Rua+Exemplo+123+Goiania",
+        mapsEmbed: "https://www.google.com/maps?q=Goiania%20GO&output=embed",
+        locationTitle: "Fácil de encontrar, fácil de pedir.",
+        locationDescription: "Endereço, horário e mapa embutido para ajudar o cliente a achar o restaurante ou pedir com mais confiança.",
+        schedule: "Segunda a domingo • 11h às 23h",
+        footerInfo: "Segunda a domingo • 11h às 23h • Retirada • Entrega • Refeição no local"
+      },
+      menuIntro: {
+        title: "Escolha seu pedido e personalize do seu jeito.",
+        description: "Modelo completo para restaurantes com pratos, pizzas, porções e bebidas, tudo com revisão do pedido antes de enviar no WhatsApp."
+      },
+      stepsIntro: {
+        title: "Fluxo simples, rápido e com cara profissional.",
+        description: "O pedido chega mais organizado no WhatsApp, facilitando o atendimento e transmitindo mais confiança para o cliente."
+      },
+      steps: [
+        { number: "1", title: "Escolha o item", text: "Navegue entre pratos, pizzas, porções e bebidas e selecione o que mais combina com você." },
+        { number: "2", title: "Personalize", text: "Adicione extras, bebidas, remova ingredientes, informe observações e defina se será retirada ou entrega." },
+        { number: "3", title: "Revise e envie", text: "Confira tudo em uma revisão completa e envie o pedido pronto direto para o WhatsApp da loja." }
+      ],
+      about: {
+        title: "Uma apresentação com cara de marca forte e atendimento profissional.",
+        description: "Este modelo foi pensado para restaurantes que querem valorizar melhor os pratos, pizzas, porções e bebidas, passar mais confiança para quem pesquisa antes de pedir e gerar mais pedidos pelo WhatsApp.",
+        highlights: [
+          { title: "Visual vendedor", text: "Estrutura pensada para dar vontade de pedir e facilitar a decisão do cliente." },
+          { title: "Foco em conversão", text: "Botões e fluxo de pedido organizados para transformar visita em atendimento direto." },
+          { title: "Pronto para personalizar", text: "Depois você pode trocar logo, fotos, cardápio, preços e dados reais do cliente." }
+        ]
+      },
+      cta: {
+        title: "Seu pedido personalizado, revisado e pronto para enviar.",
+        description: "Escolha o item, monte do seu jeito e finalize direto no WhatsApp do restaurante."
+      },
+      locationInfo: [
+        { title: "Endereço", text: "Rua Exemplo, 123 - Goiânia - GO" },
+        { title: "WhatsApp", text: "(62) 99999-9999" },
+        { title: "Instagram", text: "@restauranteprime" },
+        { title: "Horário sugerido", text: "Segunda a domingo • 11h às 23h" }
+      ],
+      categories: [
+        {
+          id: "mais-pedidos",
+          label: "Mais pedidos",
+          grid: "4",
+          items: [
+            { tag: "Mais pedido", name: "Prato Completo da Casa", description: "Arroz, feijão, carne selecionada, salada fresca e acompanhamento especial.", price: 29.9, image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1000&q=80", category: "Mais pedidos" },
+            { tag: "Destaque", name: "Prato Misto Prime", description: "Carne e frango grelhados com arroz soltinho, farofa e salada da casa.", price: 34.9, image: "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1000&q=80", category: "Mais pedidos" },
+            { tag: "Pizza", name: "Pizza Especial Prime", description: "Massa leve, queijo generoso, molho artesanal e recheio caprichado.", price: 49.9, image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=80", category: "Mais pedidos" },
+            { tag: "Combo", name: "Combo Almoço", description: "Prato executivo + bebida gelada, ideal para o dia a dia com praticidade.", price: 36.9, image: "https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=1000&q=80", category: "Mais pedidos" }
+          ]
+        },
+        {
+          id: "executivos",
+          label: "Pratos executivos",
+          grid: "4",
+          items: [
+            { tag: "Executivo", name: "Filé Acebolado", description: "Filé macio com cebola dourada, arroz, feijão e fritas.", price: 32.9, image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1000&q=80", category: "Prato executivo" },
+            { tag: "Executivo", name: "Frango Grelhado", description: "Frango suculento com arroz, purê cremoso e salada fresca.", price: 28.9, image: "https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1000&q=80", category: "Prato executivo" },
+            { tag: "Executivo", name: "Costela Assada", description: "Costela macia com arroz, mandioca e molho especial.", price: 38.9, image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=1000&q=80", category: "Prato executivo" },
+            { tag: "Executivo", name: "Massa Especial", description: "Massa cremosa com molho da casa e toque gratinado.", price: 31.9, image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1000&q=80", category: "Prato executivo" }
+          ]
+        },
+        {
+          id: "pizzas",
+          label: "Pizzas",
+          grid: "4",
+          items: [
+            { tag: "Pizza", name: "Pizza Calabresa", description: "Molho artesanal, queijo, calabresa e cebola na medida certa.", price: 44.9, image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=80", category: "Pizza" },
+            { tag: "Pizza", name: "Pizza Portuguesa", description: "Queijo, presunto, ovo, tomate e orégano em uma combinação clássica.", price: 47.9, image: "https://images.unsplash.com/photo-1594007654729-407eedc4be65?auto=format&fit=crop&w=1000&q=80", category: "Pizza" },
+            { tag: "Pizza", name: "Pizza Frango com Catupiry", description: "Frango desfiado, catupiry cremoso e massa leve.", price: 48.9, image: "https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?auto=format&fit=crop&w=1000&q=80", category: "Pizza" },
+            { tag: "Pizza doce", name: "Pizza Chocolate", description: "Massa crocante com cobertura doce para fechar o pedido.", price: 42.9, image: "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&fit=crop&w=1000&q=80", category: "Pizza" }
+          ]
+        },
+        {
+          id: "porcoes",
+          label: "Porções",
+          grid: "4",
+          items: [
+            { tag: "Porção", name: "Batata Frita Crocante", description: "Porção douradinha e sequinha, ideal para acompanhar qualquer pedido.", price: 17.9, image: "https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&w=1000&q=80", category: "Porção" },
+            { tag: "Porção", name: "Batata Cheddar Bacon", description: "Batata coberta com cheddar cremoso e bacon crocante.", price: 23.9, image: "https://images.unsplash.com/photo-1518013431117-eb1465fa5752?auto=format&fit=crop&w=1000&q=80", category: "Porção" },
+            { tag: "Porção", name: "Onion Rings", description: "Anéis de cebola empanados, crocantes por fora e macios por dentro.", price: 18.9, image: "https://images.unsplash.com/photo-1619881589316-56c7f84117a9?auto=format&fit=crop&w=1000&q=80", category: "Porção" },
+            { tag: "Porção", name: "Iscas de Frango", description: "Tiras empanadas e crocantes com molho especial para mergulhar.", price: 24.9, image: "https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=1000&q=80", category: "Porção" }
+          ]
+        },
+        {
+          id: "bebidas",
+          label: "Bebidas",
+          grid: "4",
+          items: [
+            { tag: "Bebida", name: "Refrigerante 2L", description: "Ideal para acompanhar pizzas, pratos e pedidos em família.", price: 13.0, image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=1000&q=80", category: "Bebida" },
+            { tag: "Bebida", name: "Refrigerante Lata", description: "Prático para pedidos individuais e combos rápidos.", price: 6.5, image: "https://images.unsplash.com/photo-1581006852262-e4307cf6283a?auto=format&fit=crop&w=1000&q=80", category: "Bebida" },
+            { tag: "Bebida", name: "Suco Natural", description: "Gelado, refrescante e perfeito para acompanhar seu pedido.", price: 9.0, image: "https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=1000&q=80", category: "Bebida" },
+            { tag: "Bebida", name: "Água Mineral", description: "Leve, gelada e sempre pronta para completar o pedido.", price: 4.5, image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=1000&q=80", category: "Bebida" }
+          ]
+        }
+      ],
+      addons: [
+        { name: "Bacon", price: 4.0 },
+        { name: "Ovo", price: 2.5 },
+        { name: "Queijo extra", price: 4.0 },
+        { name: "Hambúrguer extra", price: 8.0 },
+        { name: "Batata palha", price: 2.0 },
+        { name: "Molho especial", price: 2.5 },
+        { name: "Coca-Cola Lata", price: 6.5 },
+        { name: "Coca-Cola 2L", price: 13.0 },
+        { name: "Guaraná Lata", price: 6.0 },
+        { name: "Suco Natural", price: 9.0 },
+        { name: "Água Mineral", price: 4.5 }
+      ],
+      removableItems: ["Alface", "Tomate", "Cebola", "Molho"]
+    };
+
+    const menuToggle = document.getElementById('menuToggle');
+    const mobilePanel = document.getElementById('mobilePanel');
+    const revealEls = document.querySelectorAll('.reveal');
+    const quickModal = document.getElementById('quickModal');
+    const closeModal = document.getElementById('closeModal');
+    const modalItemName = document.getElementById('modalItemName');
+    const modalItemDescription = document.getElementById('modalItemDescription');
+    const modalItemImage = document.getElementById('modalItemImage');
+    const selectedItem = document.getElementById('selectedItem');
+    const selectedCategory = document.getElementById('selectedCategory');
+    const orderNotes = document.getElementById('orderNotes');
+    const qtyValue = document.getElementById('qtyValue');
+    const decreaseQty = document.getElementById('decreaseQty');
+    const increaseQty = document.getElementById('increaseQty');
+    const deliveryButtons = document.querySelectorAll('.delivery-btn');
+    const addressFields = document.getElementById('addressFields');
+    const customerName = document.getElementById('customerName');
+    const customerPhone = document.getElementById('customerPhone');
+    const street = document.getElementById('street');
+    const number = document.getElementById('number');
+    const district = document.getElementById('district');
+    const complement = document.getElementById('complement');
+    const reference = document.getElementById('reference');
+    const summaryItem = document.getElementById('summaryItem');
+    const summaryAddons = document.getElementById('summaryAddons');
+    const summaryRemovals = document.getElementById('summaryRemovals');
+    const summaryNotes = document.getElementById('summaryNotes');
+    const summaryQty = document.getElementById('summaryQty');
+    const summaryDelivery = document.getElementById('summaryDelivery');
+    const summaryAddress = document.getElementById('summaryAddress');
+    const summaryTotal = document.getElementById('summaryTotal');
+    const summaryMapText = document.getElementById('summaryMapText');
+    const sendOrderBtn = document.getElementById('sendOrderBtn');
+    const openAddressMapBtn = document.getElementById('openAddressMapBtn');
+    const tabsContainer = document.getElementById('tabsContainer');
+    const panelsContainer = document.getElementById('panelsContainer');
+    const addonsContainer = document.getElementById('addonsContainer');
+    const removeContainer = document.getElementById('removeContainer');
+
+    let currentItem = { name: '', description: '', image: '', category: '', basePrice: 0 };
+    let orderState = { quantity: 1, delivery: 'retirada' };
+
+    function formatBRL(value) {
+      return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function renderBusiness() {
+      const b = SITE_CONFIG.business;
+      document.title = b.pageTitle;
+      document.getElementById('pageTitle').textContent = b.pageTitle;
+      document.getElementById('pageDescription').setAttribute('content', b.pageDescription);
+      document.querySelector('meta[name="description"]').setAttribute('content', b.pageDescription);
+      document.getElementById('brandName').textContent = b.name;
+      document.getElementById('brandSubtitle').textContent = b.subtitle;
+      document.getElementById('brandLogo').src = b.logo;
+      document.getElementById('heroLogo').src = b.logo;
+      document.getElementById('brandLogo').alt = `Logo ${b.name}`;
+      document.getElementById('heroLogo').alt = `Logo central ${b.name}`;
+      document.getElementById('heroImage').src = b.heroImage;
+      document.getElementById('heroImage').alt = `Imagem principal ${b.name}`;
+      document.getElementById('heroTopLabel').textContent = b.heroTopLabel;
+      document.getElementById('heroTitle').textContent = b.heroTitle;
+      document.getElementById('heroDescription').textContent = b.heroDescription;
+      document.getElementById('menuSectionTitle').textContent = SITE_CONFIG.menuIntro.title;
+      document.getElementById('menuSectionDescription').textContent = SITE_CONFIG.menuIntro.description;
+      document.getElementById('stepsTitle').textContent = SITE_CONFIG.stepsIntro.title;
+      document.getElementById('stepsDescription').textContent = SITE_CONFIG.stepsIntro.description;
+      document.getElementById('aboutTitle').textContent = SITE_CONFIG.about.title;
+      document.getElementById('aboutDescription').textContent = SITE_CONFIG.about.description;
+      document.getElementById('locationTitle').textContent = b.locationTitle;
+      document.getElementById('locationDescription').textContent = b.locationDescription;
+      document.getElementById('ctaTitle').textContent = SITE_CONFIG.cta.title;
+      document.getElementById('ctaDescription').textContent = SITE_CONFIG.cta.description;
+      document.getElementById('footerName').textContent = b.name;
+      document.getElementById('footerAddress').textContent = b.address;
+      document.getElementById('footerInfo').textContent = b.footerInfo;
+      document.getElementById('mapsButton').href = b.mapsSearchLink;
+      document.getElementById('whatsButton').href = `https://wa.me/${b.whatsappNumber}`;
+      document.getElementById('mapEmbed').src = b.mapsEmbed;
+      document.getElementById('footerWhatsapp').href = `https://wa.me/${b.whatsappNumber}`;
+      document.getElementById('footerInstagram').href = b.instagram;
+      document.getElementById('floatWhatsapp').href = `https://wa.me/${b.whatsappNumber}`;
+
+      const highlightsEl = document.getElementById('heroHighlights');
+      highlightsEl.innerHTML = b.highlightBadges.map(text => `<div class="hero-badge">${text}</div>`).join('');
+
+      const aboutHighlightsEl = document.getElementById('aboutHighlights');
+      aboutHighlightsEl.innerHTML = SITE_CONFIG.about.highlights.map(item => `
+        <div class="info-item"><strong>${item.title}</strong><span>${item.text}</span></div>
+      `).join('');
+
+      const locationInfoEl = document.getElementById('locationInfo');
+      locationInfoEl.innerHTML = SITE_CONFIG.locationInfo.map(item => `
+        <div class="info-item"><strong>${item.title}</strong><span>${item.text}</span></div>
+      `).join('');
+
+      const stepsContainer = document.getElementById('stepsContainer');
+      stepsContainer.innerHTML = SITE_CONFIG.steps.map(step => `
+        <article class="flow-card reveal">
+          <div class="flow-step">${step.number}</div>
+          <h3>${step.title}</h3>
+          <p>${step.text}</p>
+        </article>
+      `).join('');
+    }
+
+    function renderCategories() {
+      tabsContainer.innerHTML = SITE_CONFIG.categories.map((cat, index) => `
+        <button class="tab-btn ${index === 0 ? 'active' : ''}" data-tab="${cat.id}">${cat.label}</button>
+      `).join('');
+
+      panelsContainer.innerHTML = SITE_CONFIG.categories.map((cat, index) => `
+        <div class="catalog-panel ${index === 0 ? 'active' : ''}" id="tab-${cat.id}">
+          <div class="catalog-grid ${cat.grid === '2' ? 'two-cols' : ''}">
+            ${cat.items.map(item => `
+              <article class="product-card reveal">
+                <div class="product-image ${cat.grid === '2' ? 'tall' : ''}">
+                  <span class="product-tag">${item.tag}</span>
+                  <img src="${item.image}" alt="${item.name}" />
+                </div>
+                <div class="product-body">
+                  <h3>${item.name}</h3>
+                  <p>${item.description}</p>
+                  <div class="price">${formatBRL(item.price)}</div>
+                  <button class="btn btn-primary open-quick-order"
+                    type="button"
+                    data-name="${item.name}"
+                    data-price="${item.price}"
+                    data-category="${item.category}"
+                    data-image="${item.image}"
+                    data-description="${item.description.replace(/"/g, '&quot;')}"
+                  >Adicionar</button>
+                </div>
+              </article>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderAddons() {
+      addonsContainer.innerHTML = SITE_CONFIG.addons.map(addon => `
+        <div class="option-chip">
+          <label><input type="checkbox" class="addon" value="${addon.name}" data-price="${addon.price}" /> ${addon.name}</label>
+          <strong>+ ${formatBRL(addon.price)}</strong>
+        </div>
+      `).join('');
+
+      removeContainer.innerHTML = SITE_CONFIG.removableItems.map(item => `
+        <label class="mini-chip"><input type="checkbox" class="remove-item" value="${item}" /> ${item}</label>
+      `).join('');
+    }
+
+    function bindDynamicEvents() {
+      document.querySelectorAll('.tab-btn').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+          document.querySelectorAll('.catalog-panel').forEach(panel => panel.classList.remove('active'));
+          tab.classList.add('active');
+          const target = document.getElementById('tab-' + tab.dataset.tab);
+          if (target) target.classList.add('active');
+        });
+      });
+
+      document.querySelectorAll('.open-quick-order').forEach(button => {
+        button.addEventListener('click', () => openModalFromButton(button));
+      });
+
+      document.querySelectorAll('.addon').forEach(input => input.addEventListener('change', updateSummary));
+      document.querySelectorAll('.remove-item').forEach(input => input.addEventListener('change', updateSummary));
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }
+
+    function getSelectedAddons() {
+      return Array.from(document.querySelectorAll('.addon'))
+        .filter(input => input.checked)
+        .map(input => ({ name: input.value, price: Number(input.dataset.price || 0) }));
+    }
+
+    function getSelectedRemovals() {
+      return Array.from(document.querySelectorAll('.remove-item'))
+        .filter(input => input.checked)
+        .map(input => input.value);
+    }
+
+    function getAddressString() {
+      const parts = [];
+      if (street.value.trim()) parts.push(street.value.trim());
+      if (number.value.trim()) parts.push('Nº ' + number.value.trim());
+      if (district.value.trim()) parts.push(district.value.trim());
+      if (complement.value.trim()) parts.push('Comp.: ' + complement.value.trim());
+      if (reference.value.trim()) parts.push('Ref.: ' + reference.value.trim());
+      return parts.join(', ');
+    }
+
+    function getMapsLinkForAddress() {
+      const address = getAddressString();
+      if (!address) return '';
+      return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(address + ', Goiânia - GO');
+    }
+
+    function calculateTotal() {
+      const addonsTotal = getSelectedAddons().reduce((acc, addon) => acc + addon.price, 0);
+      return (currentItem.basePrice + addonsTotal) * orderState.quantity;
+    }
+
+    function updateSummary() {
+      const addons = getSelectedAddons();
+      const removals = getSelectedRemovals();
+      const total = calculateTotal();
+      const addressString = getAddressString();
+      summaryItem.textContent = currentItem.name ? currentItem.name + ' • ' + formatBRL(currentItem.basePrice) : '-';
+      summaryAddons.textContent = addons.length ? addons.map(addon => addon.name + ' (' + formatBRL(addon.price) + ')').join(', ') : 'Nenhum adicional';
+      summaryRemovals.textContent = removals.length ? removals.join(', ') : 'Nada removido';
+      summaryNotes.textContent = orderNotes.value.trim() ? orderNotes.value.trim() : 'Sem observações';
+      summaryQty.textContent = String(orderState.quantity);
+      summaryDelivery.textContent = orderState.delivery === 'retirada' ? 'Retirada na loja' : 'Entrega';
+      summaryAddress.textContent = orderState.delivery === 'retirada' ? 'Retirada na loja' : (addressString || 'Preencha o endereço para entrega');
+      summaryTotal.textContent = formatBRL(total);
+      summaryMapText.textContent = orderState.delivery === 'entrega' ? 'O endereço digitado pode ser aberto no Google Maps antes do envio do pedido.' : 'Para retirada, o pedido será enviado sem endereço de entrega.';
+    }
+
+    function resetFormFields() {
+      document.querySelectorAll('.addon').forEach(input => input.checked = false);
+      document.querySelectorAll('.remove-item').forEach(input => input.checked = false);
+      orderNotes.value = '';
+      customerName.value = '';
+      customerPhone.value = '';
+      street.value = '';
+      number.value = '';
+      district.value = '';
+      complement.value = '';
+      reference.value = '';
+      orderState.quantity = 1;
+      qtyValue.textContent = '1';
+      orderState.delivery = 'retirada';
+      addressFields.style.display = 'none';
+      deliveryButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.delivery === 'retirada'));
+    }
+
+    function openModalFromButton(button) {
+      currentItem = {
+        name: button.dataset.name || '',
+        description: button.dataset.description || '',
+        image: button.dataset.image || '',
+        category: button.dataset.category || '',
+        basePrice: Number(button.dataset.price || 0)
+      };
+      resetFormFields();
+      modalItemName.textContent = currentItem.name;
+      modalItemDescription.textContent = currentItem.description;
+      modalItemImage.src = currentItem.image;
+      modalItemImage.alt = currentItem.name;
+      selectedItem.value = currentItem.name;
+      selectedCategory.value = currentItem.category;
+      updateSummary();
+      quickModal.classList.add('open');
+      quickModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeOrderModal() {
+      quickModal.classList.remove('open');
+      quickModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function buildWhatsAppMessage() {
+      const b = SITE_CONFIG.business;
+      const addons = getSelectedAddons();
+      const removals = getSelectedRemovals();
+      const addressString = getAddressString();
+      const mapsLink = getMapsLinkForAddress();
+      const total = calculateTotal();
+      const lines = [];
+      lines.push(`*Pedido - ${b.name}*`);
+      lines.push('');
+      lines.push('*Cliente:* ' + (customerName.value.trim() || 'Não informado'));
+      lines.push('*Telefone:* ' + (customerPhone.value.trim() || 'Não informado'));
+      lines.push('');
+      lines.push('*Item:* ' + currentItem.name);
+      lines.push('*Categoria:* ' + currentItem.category);
+      lines.push('*Quantidade:* ' + orderState.quantity);
+      lines.push('*Preço base:* ' + formatBRL(currentItem.basePrice));
+      lines.push('*Adicionais:* ' + (addons.length ? addons.map(addon => addon.name + ' (' + formatBRL(addon.price) + ')').join(', ') : 'Nenhum'));
+      lines.push('*Remover:* ' + (removals.length ? removals.join(', ') : 'Nada'));
+      lines.push('*Observações:* ' + (orderNotes.value.trim() || 'Sem observações'));
+      lines.push('');
+      lines.push('*Forma de recebimento:* ' + (orderState.delivery === 'retirada' ? 'Retirada na loja' : 'Entrega'));
+      if (orderState.delivery === 'entrega') {
+        lines.push('*Endereço:* ' + (addressString || 'Não informado'));
+        if (mapsLink) lines.push('*Maps do endereço:* ' + mapsLink);
+      }
+      lines.push('');
+      lines.push('*Total do pedido:* ' + formatBRL(total));
+      lines.push('');
+      lines.push('Aguardando confirmação.');
+      return lines.join('\n');
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14 });
+
+    menuToggle?.addEventListener('click', () => mobilePanel.classList.toggle('open'));
+    document.querySelectorAll('.mobile-links a').forEach(link => {
+      link.addEventListener('click', () => mobilePanel.classList.remove('open'));
+    });
+
+    closeModal.addEventListener('click', closeOrderModal);
+    quickModal.addEventListener('click', (event) => { if (event.target === quickModal) closeOrderModal(); });
+    [orderNotes, customerName, customerPhone, street, number, district, complement, reference].forEach(el => el.addEventListener('input', updateSummary));
+
+    decreaseQty.addEventListener('click', () => {
+      if (orderState.quantity > 1) {
+        orderState.quantity -= 1;
+        qtyValue.textContent = String(orderState.quantity);
+        updateSummary();
+      }
+    });
+    increaseQty.addEventListener('click', () => {
+      orderState.quantity += 1;
+      qtyValue.textContent = String(orderState.quantity);
+      updateSummary();
+    });
+    deliveryButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        orderState.delivery = button.dataset.delivery;
+        deliveryButtons.forEach(btn => btn.classList.toggle('active', btn === button));
+        addressFields.style.display = orderState.delivery === 'entrega' ? 'block' : 'none';
+        updateSummary();
+      });
+    });
+
+    sendOrderBtn.addEventListener('click', () => {
+      const url = 'https://wa.me/' + SITE_CONFIG.business.whatsappNumber + '?text=' + encodeURIComponent(buildWhatsAppMessage());
+      window.open(url, '_blank');
+    });
+
+    openAddressMapBtn.addEventListener('click', () => {
+      if (orderState.delivery !== 'entrega') {
+        alert('Selecione a opção de entrega para abrir o endereço digitado no Google Maps.');
+        return;
+      }
+      const mapsLink = getMapsLinkForAddress();
+      if (!mapsLink) {
+        alert('Preencha o endereço para abrir no Google Maps.');
+        return;
+      }
+      window.open(mapsLink, '_blank');
+    });
+
+    renderBusiness();
+    renderCategories();
+    renderAddons();
+    bindDynamicEvents();
+  </script>
+</body>
+</html>
